@@ -1,4 +1,4 @@
-export const colours = {
-    heading: 'text-white',
-    background: 'bg-sky-950'
+export const colors = {
+    heading: 'text-slate-50',
+    background: '#06213E'
 }

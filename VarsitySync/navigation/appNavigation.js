@@ -10,7 +10,7 @@ export default function AppNavigation() {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
