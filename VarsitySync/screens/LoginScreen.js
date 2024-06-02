@@ -4,6 +4,8 @@ import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {ArrowLeftIcon} from 'react-native-heroicons/solid'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebaseConfig'
 
 
 export default function LoginScreen() {
@@ -12,10 +14,9 @@ export default function LoginScreen() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
-    const handleSubmit = ()=>{
+    const handleSubmit = async()=>{
         if(email && password){
-            navigation.goBack;
-            navigation.navigate('Home');
+            await signInWithEmailAndPassword(auth, email, password);
         } else {
             //error 
         }
