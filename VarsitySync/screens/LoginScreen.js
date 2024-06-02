@@ -14,6 +14,7 @@ export default function LoginScreen() {
 
     const handleSubmit = ()=>{
         if(email && password){
+            navigation.goBack;
             navigation.navigate('Home');
         } else {
             //error 
