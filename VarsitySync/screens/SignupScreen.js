@@ -4,20 +4,20 @@ import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {ArrowLeftIcon} from 'react-native-heroicons/solid'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../firebaseConfig'
 
-export default function LoginScreen() {
+export default function SignupScreen() {
     const navigation =useNavigation();
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
-    const handleSubmit = async()=>{
+    const handleAddUser = async ()=>{
         if(email && password){
-            await signInWithEmailAndPassword(auth, email, password);
+            await createUserWithEmailAndPassword(auth, email, password)
         } else {
-            //error 
+            //error
         }
     }
 
@@ -50,33 +50,32 @@ export default function LoginScreen() {
                 onChangeText={value=>setemail(value)}
             />
             <View className= "from space-y-2">
+                <Text className="text-slate-900 ml-4 mt-5">Name</Text>
+            </View>
+            <TextInput
+                className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mt-1" 
+                placeholder='Athlete'
+            />
+            <View className= "from space-y-2">
                 <Text className="text-slate-900 ml-4 mt-10">Password</Text>
             </View>
             <TextInput
                 className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2" 
-                placeholder='Enter Password'
                 secureTextEntry
+                placeholder='Enter Password'
                 onChangeText={value=>setpassword(value)}
             />
-            
-            <TouchableOpacity className= "flex items-end mb-5">
-                <Text className="text-slate-900 text-sm">Forget Password?</Text>
-            </TouchableOpacity>
+             <View className= "from space-y-2 mb-2">
+                <Text className=" text-slate-900 ml-2 text-xs">Password must be be at least 8 characters in length. consist of a mix of alpha, at least one numeric and special characters</Text>
+            </View>
 
-            <TouchableOpacity 
-                onPress={handleSubmit}
+            <TouchableOpacity onPress={handleAddUser}
                 className= "py-3 mx-1 rounded-xl mt-7" style= {{backgroundColor: colors.background}}>
                 <Text className="text-center text-white font-bold text-xl">
-                    Login
+                    Sign Up
                 </Text>
             </TouchableOpacity>
 
-            <View className= 'flex-row justify-center mt-7'>
-                <Text className= 'text-slate-900 font-semibold'>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                    <Text className= 'font-semibold text-blue-500'> Sign Up</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     </View>
   )
