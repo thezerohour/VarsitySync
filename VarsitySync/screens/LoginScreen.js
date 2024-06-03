@@ -7,7 +7,6 @@ import {ArrowLeftIcon} from 'react-native-heroicons/solid'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 
-
 export default function LoginScreen() {
     const navigation =useNavigation();
 
@@ -56,11 +55,9 @@ export default function LoginScreen() {
             <TextInput
                 className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2" 
                 placeholder='Enter Password'
+                secureTextEntry
                 onChangeText={value=>setpassword(value)}
             />
-             <View className= "from space-y-2 mb-2">
-                <Text className=" text-slate-900 ml-2 text-xs">Password must be be at least 8 characters in length. consist of a mix of alpha, at least one numeric and special characters</Text>
-            </View>
             
             <TouchableOpacity className= "flex items-end mb-5">
                 <Text className="text-slate-900 text-sm">Forget Password?</Text>

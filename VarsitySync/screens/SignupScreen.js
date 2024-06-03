@@ -16,7 +16,6 @@ export default function SignupScreen() {
     const handleAddUser = async ()=>{
         if(email && password){
             await createUserWithEmailAndPassword(auth, email, password)
-            
         } else {
             //error
         }

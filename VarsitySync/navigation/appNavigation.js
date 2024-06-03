@@ -18,7 +18,7 @@ export default function AppNavigation() {
   const dispatch = useDispatch();
 
   onAuthStateChanged(auth, u => {
-    //console.log('user', u);
+    console.log('user: ',u);
     dispatch(setUser(u));
   })
 
