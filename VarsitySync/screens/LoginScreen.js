@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
@@ -13,14 +13,18 @@ export default function LoginScreen() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
-    const handleSubmit = async()=>{
-        if(email && password){
-            await signInWithEmailAndPassword(auth, email, password);
+    const handleSubmit = async () => {
+        if (email && password) {
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                navigation.navigate('Home')
+            } catch (error) {
+                Alert.alert('Error', error.message);
+            }
         } else {
-            //error 
+            Alert.alert('Error', 'Please enter both email and password');
         }
-    }
-
+    };
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
@@ -41,15 +45,17 @@ export default function LoginScreen() {
         <View className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
             style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
             
-            <View className= "from space-y-2">
+            <View className= "space-y-2">
                 <Text className="text-slate-900 ml-4 mt-2">NUSNET ID</Text>
             </View>
             <TextInput
                 className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mt-1" 
                 placeholder='exxxxxxx@u.nus.edu'
                 onChangeText={value=>setemail(value)}
+                autoCapitalize= 'none'
+                autoCorrect= 'none'
             />
-            <View className= "from space-y-2">
+            <View className= "space-y-2">
                 <Text className="text-slate-900 ml-4 mt-10">Password</Text>
             </View>
             <TextInput
@@ -57,9 +63,12 @@ export default function LoginScreen() {
                 placeholder='Enter Password'
                 secureTextEntry
                 onChangeText={value=>setpassword(value)}
+                autoCapitalize= 'none'
+                autoCorrect= 'none'
             />
             
-            <TouchableOpacity className= "flex items-end mb-5">
+            <TouchableOpacity className= "flex items-end mb-5"
+                onPress={() => navigation.navigate("ForgetPassword")}>
                 <Text className="text-slate-900 text-sm">Forget Password?</Text>
             </TouchableOpacity>
 

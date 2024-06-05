@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../firebaseConfig';
 import { setUser } from '../redux/slices/user';
+import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,8 @@ export default function AppNavigation() {
   if(user){
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -35,8 +37,9 @@ export default function AppNavigation() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
           <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="Login" component={LoginScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="SignUp" component={SignupScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="SignUp" component={SignupScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
