@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-import {getAuth} from "firebase/auth";
+import {getAuth, nitializeAuth, getReactNativePersistence} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 // import {...} from "firebase/database";
 // import {...} from "firebase/functions";
