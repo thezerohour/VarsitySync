@@ -4,7 +4,7 @@ import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {ArrowLeftIcon} from 'react-native-heroicons/solid'
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from '../firebaseConfig'
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -19,11 +19,14 @@ export default function SignupScreen() {
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
+    const [name, setname] = useState('');
+
 
     const handleAddUser = async () => {
-        if (email && password) {
+        if (email && password && name) {
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(auth.currentUser, {displayName: name});
                 Alert.alert('Success', 'User account created successfully', 
                     [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
                     );
@@ -31,7 +34,7 @@ export default function SignupScreen() {
                 Alert.alert('Error', error.message);
             }
         } else {
-            Alert.alert('Error', 'Please enter both email and password');
+            Alert.alert('Error', 'Please enter email, name and password');
         }
     };
 
@@ -79,8 +82,9 @@ export default function SignupScreen() {
                 <TextInput
                     className= "flex ml-1 justify-center text-base mt-[-7px]" 
                     placeholder='Enter Name'
+                    onChangeText={value=>setname(value)}
                     autoCapitalize= 'none'
-                    autoCorrect= 'none'
+                    autoCorrect={false}
                 />
             </View>
 
@@ -96,7 +100,7 @@ export default function SignupScreen() {
                     secureTextEntry ={visible}
                     onChangeText={value=>setpassword(value)}
                     autoCapitalize= 'none'
-                    autoCorrect= 'none'
+                    autoCorrect={false}
                 />
                 <TouchableOpacity className="absolute left-72 mt-[20px]"
                     onPress={() => {

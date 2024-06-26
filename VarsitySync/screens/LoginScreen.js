@@ -23,6 +23,7 @@ export default function LoginScreen() {
         if (email && password) {
             try {
                 await signInWithEmailAndPassword(auth, email, password);
+                Alert.alert('Success', 'User logged in successfully:' + auth.currentUser.displayName), 
                 navigation.navigate('Home')
             } catch (error) {
                 Alert.alert('Error', error.message);
@@ -80,7 +81,7 @@ export default function LoginScreen() {
                     secureTextEntry ={visible}
                     onChangeText={value=>setpassword(value)}
                     autoCapitalize= 'none'
-                    autoCorrect= 'none'
+                    autoCorrect={false}
                 />
                 <TouchableOpacity className="absolute left-72 mt-[22px]"
                     onPress={() => {
