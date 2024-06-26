@@ -78,13 +78,13 @@ export default function ForgetPasswordScreen() {
             
             <TextInput
                 className= "p-4 bg-gray-100 text-slate-900 rounded-2xl justify-center mt-9" 
-                placeholder='Enter NUSNET ID'
+                placeholder='Enter Email'
                 onChangeText={value=>setemail(value)}
                 autoCapitalize= 'none'
                 autoCorrect= 'none'
             />
             <Text className=" flex text-xs text-slate-900 justify-center mt-4 ml-1">
-                Enter your NUSNET ID and we'll send you a link to reset your password
+                Enter your email and we'll send you a link to reset your password
             </Text>
 
             <TouchableOpacity

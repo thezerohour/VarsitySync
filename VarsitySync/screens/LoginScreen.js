@@ -53,15 +53,15 @@ export default function LoginScreen() {
             
             <View className= "space-y-2">
                 <Text className="text-slate-900 ml-4 mt-2">
-                    NUSNET ID
+                    Email
                 </Text>
             </View>
             
             <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
                     <EvilIcons name="envelope" size={35} color="lightgrey" className='mr-8 justify-center' />
                     <TextInput
-                        className= "flex ml-1 justify-center text-base mt-[-9px]"
-                        placeholder='exxxxxxx@u.nus.edu'
+                        className= "flex ml-1 justify-center text-base mt-[-6px]"
+                        placeholder='Enter Email'
                         onChangeText={value=>setemail(value)}
                         autoCapitalize='none'
                         autoCorrect={false}
