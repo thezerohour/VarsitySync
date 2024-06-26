@@ -36,6 +36,9 @@ export default function ForgetPasswordScreen() {
                     case 'auth/user-not-found':
                         userMessage = "No user found with this email address.";
                         break;
+                    case 'auth/missing-email':
+                        userMessage = "Oops! You forgot to put in your email.";
+                        break;
                     default:
                         userMessage = errorMessage;
                         break;

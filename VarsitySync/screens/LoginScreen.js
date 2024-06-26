@@ -3,12 +3,18 @@ import React, { useState } from 'react'
 import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import {ArrowLeftIcon} from 'react-native-heroicons/solid'
+import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
+
 
 export default function LoginScreen() {
     const navigation =useNavigation();
+    const [show, setShow] = useState(false);
+    const [visible, setVisible] = useState(true);
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
@@ -46,26 +52,44 @@ export default function LoginScreen() {
             style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
             
             <View className= "space-y-2">
-                <Text className="text-slate-900 ml-4 mt-2">NUSNET ID</Text>
+                <Text className="text-slate-900 ml-4 mt-2">
+                    NUSNET ID
+                </Text>
             </View>
-            <TextInput
-                className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mt-1" 
-                placeholder='exxxxxxx@u.nus.edu'
-                onChangeText={value=>setemail(value)}
-                autoCapitalize= 'none'
-                autoCorrect= 'none'
-            />
-            <View className= "space-y-2">
+            
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                    <EvilIcons name="envelope" size={35} color="lightgrey" className='mr-8 justify-center' />
+                    <TextInput
+                        className= "flex ml-1 justify-center text-base mt-[-9px]"
+                        placeholder='exxxxxxx@u.nus.edu'
+                        onChangeText={value=>setemail(value)}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+            </View>
+            
+            <View className= "space-y-2 mt-[-30px]">
                 <Text className="text-slate-900 ml-4 mt-10">Password</Text>
             </View>
-            <TextInput
-                className= "p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2" 
-                placeholder='Enter Password'
-                secureTextEntry
-                onChangeText={value=>setpassword(value)}
-                autoCapitalize= 'none'
-                autoCorrect= 'none'
-            />
+
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                    <AntDesign name="lock" size={32} color="lightgrey" className='mr-8 justify-center' />
+                <TextInput
+                    className= "flex ml-1 justify-center text-base mt-[-4px]"
+                    placeholder='Enter Password'
+                    secureTextEntry ={visible}
+                    onChangeText={value=>setpassword(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect= 'none'
+                />
+                <TouchableOpacity className="absolute left-72 mt-[22px]"
+                    onPress={() => {
+                        setVisible(!visible)
+                        setShow(!show)}
+                }>
+                    <Feather name= {show === false ? "eye" : "eye-off"} size={25} color="lightgrey"/>
+                </TouchableOpacity>
+            </View>
             
             <TouchableOpacity className= "flex items-end mb-5"
                 onPress={() => navigation.navigate("ForgetPassword")}>
