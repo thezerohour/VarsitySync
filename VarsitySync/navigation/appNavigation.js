@@ -5,6 +5,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ToDoList from '../screens/ToDoList';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../firebaseConfig';
@@ -18,17 +19,18 @@ export default function AppNavigation() {
 
   const dispatch = useDispatch();
 
-  onAuthStateChanged(auth, u => {
-    console.log('user: ',u);
+  onAuthStateChanged(auth, (u) => {
+    console.log('user: ', u);
     dispatch(setUser(u));
-  })
+  });
 
-  if(user){
+  /*if(user){
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Home" component={HomeScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="ToDoList" component={ToDoList} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -43,5 +45,12 @@ export default function AppNavigation() {
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }
+  }*/
+ return (
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Screen options= {{headerShown: false}} name="ToDoList" component={ToDoList} />
+    </Stack.Navigator>
+  </NavigationContainer>
+ )
 }

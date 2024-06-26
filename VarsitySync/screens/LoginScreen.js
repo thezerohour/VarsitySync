@@ -23,7 +23,7 @@ export default function LoginScreen() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
-     const handleLogin = async () => {
+    const handleLogin = async () => {
     if (email && password) {
       try {
         await dispatch(loginUser(email, password));
