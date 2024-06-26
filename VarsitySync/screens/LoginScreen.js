@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
+import { loginUser } from '../redux/slices/userActions';
+import { useDispatch } from 'react-redux';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
@@ -13,25 +15,26 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function LoginScreen() {
     const navigation =useNavigation();
+    const dispatch = useDispatch();
+
     const [show, setShow] = useState(false);
     const [visible, setVisible] = useState(true);
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
-    const handleSubmit = async () => {
-        if (email && password) {
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                Alert.alert('Success', 'User logged in successfully:' + auth.currentUser.displayName), 
-                navigation.navigate('Home')
-            } catch (error) {
-                Alert.alert('Error', error.message);
-            }
-        } else {
-            Alert.alert('Error', 'Please enter both email and password');
-        }
-    };
+     const handleLogin = async () => {
+    if (email && password) {
+      try {
+        await dispatch(loginUser(email, password));
+        navigation.navigate('Home');
+      } catch (error) {
+        Alert.alert('Error', error.message);
+      }
+    } else {
+      Alert.alert('Error', 'Please enter both email and password');
+    }
+  };
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
@@ -98,7 +101,7 @@ export default function LoginScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity 
-                onPress={handleSubmit}
+                onPress={handleLogin}
                 className= "py-3 mx-1 rounded-xl mt-7" style= {{backgroundColor: colors.background}}>
                 <Text className="text-center text-white font-bold text-xl">
                     Login

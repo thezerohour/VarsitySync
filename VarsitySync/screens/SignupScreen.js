@@ -4,8 +4,10 @@ import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {ArrowLeftIcon} from 'react-native-heroicons/solid'
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../firebaseConfig'
+import { registerUser } from '../redux/slices/userActions';
+import { useDispatch } from 'react-redux';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -14,29 +16,26 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function SignupScreen() {
     const navigation =useNavigation();
+    const dispatch = useDispatch();
+    
     const [show, setShow] = useState(false);
     const [visible, setVisible] = useState(true);
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
-    const [name, setname] = useState('');
-
 
     const handleAddUser = async () => {
-        if (email && password && name) {
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                await updateProfile(auth.currentUser, {displayName: name});
-                Alert.alert('Success', 'User account created successfully', 
-                    [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
-                    );
-            } catch (error) {
-                Alert.alert('Error', error.message);
-            }
+        if (email && password) {
+          try {
+            await dispatch(registerUser(email, password));
+            navigation.navigate('Login');
+          } catch (error) {
+            Alert.alert('Error', error.message);
+          }
         } else {
-            Alert.alert('Error', 'Please enter email, name and password');
+          Alert.alert('Error', 'Please enter both email and password');
         }
-    };
+      };
 
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
@@ -82,9 +81,8 @@ export default function SignupScreen() {
                 <TextInput
                     className= "flex ml-1 justify-center text-base mt-[-7px]" 
                     placeholder='Enter Name'
-                    onChangeText={value=>setname(value)}
                     autoCapitalize= 'none'
-                    autoCorrect={false}
+                    autoCorrect= 'none'
                 />
             </View>
 
@@ -100,7 +98,7 @@ export default function SignupScreen() {
                     secureTextEntry ={visible}
                     onChangeText={value=>setpassword(value)}
                     autoCapitalize= 'none'
-                    autoCorrect={false}
+                    autoCorrect= 'none'
                 />
                 <TouchableOpacity className="absolute left-72 mt-[20px]"
                     onPress={() => {
