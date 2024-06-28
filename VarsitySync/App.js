@@ -4,6 +4,7 @@ import AppNavigation from './navigation/appNavigation';
 import { store } from './redux/store';
 
 function App() {
+  
   return (
     <Provider store={store}>
       <AppNavigation />

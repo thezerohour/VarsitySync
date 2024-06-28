@@ -1,40 +1,107 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, FlatList, Modal } from "react-native";
-import { colors } from '../theme '
-import { AntDesign } from '@expo/vector-icons';
-import TodoList from '../components/TodoList';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    FlatList,
+    Modal,
+} from "react-native";
+import { colors } from "../theme ";
+import { AntDesign } from "@expo/vector-icons";
+import TodoList from "../components/TodoList";
+import AddListModal from "../components/AddListModal";
+import tempData from "../tempData";
 
-export default function ToDoList() {  
-    return (
-        <View style={styles.container}>
-            <View style={{flexDirection: "row"}}>
-                <View style={styles.divider} />
-                <Text style={styles.title}>
-                    Todo <Text style={{fontWeight: "300", color: colors.blue }}>Lists</Text>
-                </Text>
-                <View style={styles.divider} />
+export default class ToDoList extends React.Component {
+    state = {
+        addTodoVisible: false,
+        lists: tempData,
+    };
+
+    toggleAddTodoModal() {
+        this.setState({ addTodoVisible: !this.state.addTodoVisible });
+    }
+
+    renderList = (list) => {
+        return <TodoList list={list} updateList={this.updateList} />;
+    };
+
+    addList = (list) => {
+        this.setState({
+            lists: [
+                ...this.state.lists,
+                { ...list, id: this.state.lists.length + 1, todos: [] },
+            ],
+        });
+    };
+
+    updateList = (list) => {
+        this.setState({
+            lists: this.state.lists.map((item) => {
+                return item.id === list.id ? list : item;
+            }),
+        });
+    }
+    
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Modal
+                    animationType="slide"
+                    visible={this.state.addTodoVisible}
+                    onRequestClose={() => this.toggleAddTodoModal()}
+                >
+                    <AddListModal
+                        closeModal={() => this.toggleAddTodoModal()}
+                        addList={this.addList}
+                    />
+                </Modal>
+
+                <View style={{ flexDirection: "row" }}>
+                    <View style={styles.divider} />
+                    <Text style={styles.title}>
+                        Todo{" "}
+                        <Text style={{ fontWeight: "300", color: colors.blue }}>
+                            Lists
+                        </Text>
+                    </Text>
+                    <View style={styles.divider} />
+                </View>
+
+                <View style={{ marginVertical: 48 }}>
+                    <TouchableOpacity
+                        style={styles.addList}
+                        onPress={() => this.toggleAddTodoModal()}
+                    >
+                        <AntDesign name="plus" size={16} color={colors.blue} />
+                    </TouchableOpacity>
+
+                    <Text
+                        style={{
+                            color: colors.blue,
+                            fontWeight: "600",
+                            marginTop: 8,
+                        }}
+                    >
+                        Add List
+                    </Text>
+                </View>
+
+                <View style={{ height: 275, paddingLeft: 32 }}>
+                    <FlatList
+                        data={this.state.lists}
+                        keyExtractor={(item) => item.name}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => this.renderList(item)}
+                        keyboardShouldPersistTaps="always"
+                    />
+                </View>
             </View>
-
-            <View style={{marginVertical:48}}>
-                <TouchableOpacity style={styles.addList}>
-                    <AntDesign name="plus" size={16} color={colors.blue} />
-                </TouchableOpacity>
-
-                <Text style={{color: colors.blue, fontWeight: "600", marginTop: 8}}>Add List</Text>
-            </View>
-
-            <View style={{height: 275, paddingLeft: 32}}>
-                <FlatList
-                    data={tempData}
-                    keyExtractor={item => item.name}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({item}) => <TodoList list={item} />}
-                />
-            </View>
-
-        </View>
-    );
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -69,36 +136,5 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontSize: 14,
         marginTop: 8,
-    }
-})
-
-const tempData = [
-    {
-        name: "Plan a Trip",
-        color: "#24A6D9",
-        todos: [
-            { title: "Book Flight", completed: false },
-            { title: "Passport Check", completed: true },
-            { title: "Reserve Hotel Room", completed: true },
-            { title: "Pack Luggage", completed: false }
-        ]
     },
-    {
-        name: "Errands",
-        color: "#8022D9",
-        todos: [
-            { title: "Buy Milk", completed: false },
-            { title: "Go to Gym", completed: true },
-            { title: "Pay Bills", completed: true }
-        ]
-    },
-    {
-        name: "Birthday Party",
-        color: "#595BD9",
-        todos: [
-            { title: "Buy Gift", completed: false },
-            { title: "Send Invites", completed: false },
-            { title: "Make Dinner Reservations", completed: true }
-        ]
-    }
-]
+});
