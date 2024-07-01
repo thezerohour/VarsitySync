@@ -1,12 +1,14 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { setUser, setUserLoading, clearUser } from './user';
+import { FirebaseError } from 'firebase/app';
 
-export const registerUser = (email, password) => async (dispatch) => {
+export const registerUser = (email, password, displayName) => async (dispatch) => {
   dispatch(setUserLoading(true));
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+    await updateProfile(user, { displayName }); // Set the display name in Firebase Auth
     dispatch(setUser({
       uid: user.uid,
       email: user.email,

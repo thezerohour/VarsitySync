@@ -23,11 +23,12 @@ export default function SignupScreen() {
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
+    const [displayName, setdisplayName] = useState('');
 
     const handleAddUser = async () => {
         if (email && password) {
           try {
-            await dispatch(registerUser(email, password));
+            await dispatch(registerUser(email, password, displayName));
             navigation.navigate('Login');
           } catch (error) {
             Alert.alert('Error', error.message);
@@ -81,8 +82,9 @@ export default function SignupScreen() {
                 <TextInput
                     className= "flex ml-1 justify-center text-base mt-[-7px]" 
                     placeholder='Enter Name'
+                    onChangeText={value=>setdisplayName(value)}
                     autoCapitalize= 'none'
-                    autoCorrect= 'none'
+                    autoCorrect={false}
                 />
             </View>
 
@@ -98,7 +100,7 @@ export default function SignupScreen() {
                     secureTextEntry ={visible}
                     onChangeText={value=>setpassword(value)}
                     autoCapitalize= 'none'
-                    autoCorrect= 'none'
+                    autoCorrect={false}
                 />
                 <TouchableOpacity className="absolute left-72 mt-[20px]"
                     onPress={() => {
