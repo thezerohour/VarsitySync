@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { setUser, setUserLoading, clearUser } from './user';
+import { FirebaseError } from 'firebase/app';
 
 export const registerUser = (email, password, displayName) => async (dispatch) => {
   dispatch(setUserLoading(true));

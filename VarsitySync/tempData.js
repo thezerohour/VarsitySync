@@ -1,12 +1,11 @@
 export default tempData = [
     {
         id: 1,
-        name: "Plan a Trip",
+        name: "Trip to Italy",
         color: "#24A6D9",
         todos: [
             { title: "Book Flight", completed: false },
             { title: "Passport Check", completed: true },
-            { title: "Reserve Hotel Room", completed: true },
             { title: "Pack Luggage", completed: false },
         ],
     },
@@ -22,12 +21,18 @@ export default tempData = [
     },
     {
         id: 3,
-        name: "Birthday Party",
+        name: "DB1101",
         color: "#595BD9",
         todos: [
-            { title: "Buy Gift", completed: false },
-            { title: "Send Invites", completed: false },
-            { title: "Make Dinner Reservations", completed: true },
+            { title: "Wrap Paddle", completed: false },
+
+        ],
+        id: 3,
+        name: "PF1101",
+        color: "#595BD9",
+        todos: [
+            { title: "go tutorial", completed: false },
+
         ],
     },
 ];

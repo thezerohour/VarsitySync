@@ -20,11 +20,10 @@ export default function AppNavigation() {
   const dispatch = useDispatch();
 
   onAuthStateChanged(auth, (u) => {
-    console.log('user: ', u);
     dispatch(setUser(u));
   });
 
-  /*if(user){
+  if(user){
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
@@ -45,12 +44,5 @@ export default function AppNavigation() {
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }*/
- return (
-  <NavigationContainer>
-    <Stack.Navigator initialRouteName="Welcome">
-    <Stack.Screen options= {{headerShown: false}} name="ToDoList" component={ToDoList} />
-    </Stack.Navigator>
-  </NavigationContainer>
- )
+  }
 }

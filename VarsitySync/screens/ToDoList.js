@@ -12,12 +12,15 @@ import { AntDesign } from "@expo/vector-icons";
 import TodoList from "../components/TodoList";
 import AddListModal from "../components/AddListModal";
 import tempData from "../tempData";
+import { auth } from '../firebaseConfig';
 
 export default class ToDoList extends React.Component {
     state = {
         addTodoVisible: false,
         lists: tempData,
+        user: {}
     };
+        
 
     toggleAddTodoModal() {
         this.setState({ addTodoVisible: !this.state.addTodoVisible });
@@ -58,6 +61,10 @@ export default class ToDoList extends React.Component {
                         addList={this.addList}
                     />
                 </Modal>
+
+                <View>
+                    <Text>User: {auth.currentUser.displayName}</Text>
+                </View>
 
                 <View style={{ flexDirection: "row" }}>
                     <View style={styles.divider} />
