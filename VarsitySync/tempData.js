@@ -25,9 +25,10 @@ export default tempData = [
         color: "#595BD9",
         todos: [
             { title: "Wrap Paddle", completed: false },
-
         ],
-        id: 3,
+    },
+    {
+        id: 4,
         name: "PF1101",
         color: "#595BD9",
         todos: [
