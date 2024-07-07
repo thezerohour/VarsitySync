@@ -27,7 +27,7 @@ export default function LoginScreen() {
     if (email && password) {
       try {
         await dispatch(loginUser(email, password));
-        navigation.navigate('Home');
+        navigation.navigate("Home");
       } catch (error) {
         Alert.alert('Error', error.message);
       }
