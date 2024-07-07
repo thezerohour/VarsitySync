@@ -38,6 +38,7 @@ export default class TodoModal extends Component {
                 <TouchableOpacity onPress={() => this.toggleTodoCompleted(index)} >
                     <Ionicons
                         name={
+                            todo.completed ? "checkbox" : "square-outline"
                             todo.completed ? "checkbox-outline" : "square-outline"
                         }
                         size={24}

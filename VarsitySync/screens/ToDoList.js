@@ -71,7 +71,7 @@ export default class ToDoList extends React.Component {
                     <Text style={styles.title}>
                         Todo{" "}
                         <Text style={{ fontWeight: "300", color: colors.blue }}>
-                            Lists
+                            List
                         </Text>
                     </Text>
                     <View style={styles.divider} />
