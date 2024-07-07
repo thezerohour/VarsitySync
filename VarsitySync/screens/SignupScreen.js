@@ -18,7 +18,7 @@ export default function SignupScreen() {
     const navigation =useNavigation();
     const dispatch = useDispatch();
     
-    const [show, setShow] = useState(false);
+   
     const [visible, setVisible] = useState(true);
 
     const [email, setemail] = useState('');
@@ -93,9 +93,9 @@ export default function SignupScreen() {
             </View>
     
             <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                <AntDesign name="lock" size={27} color="lightgrey" className='mr-8 justify-center' />
+                <AntDesign name="lock" size={27} color="lightgrey" />
                 <TextInput
-                    className= "flex ml-1 justify-center text-base mt-[-4px]"
+                    className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
                     placeholder='Enter Password'
                     secureTextEntry ={visible}
                     onChangeText={value=>setpassword(value)}
@@ -104,10 +104,9 @@ export default function SignupScreen() {
                 />
                 <TouchableOpacity className="absolute left-72 mt-[20px]"
                     onPress={() => {
-                        setVisible(!visible)
-                        setShow(!show)}
+                        setVisible(visible => !visible)}
                 }>
-                    <Feather name= {show === false ? "eye" : "eye-off"} size={25} color="lightgrey"/>
+                    <Feather name= {visible ? "eye-off" : "eye"} size={25} color="lightgrey"/>
                 </TouchableOpacity>
             </View>
              <View className= "space-y-2 mb-2">

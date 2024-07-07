@@ -27,15 +27,15 @@
     },
     "extra": {
       "eas": {
-        "projectId": "7d1eb585-971b-44be-9d17-05fbb6ff048f"
+        "projectId": "36bfb03b-1db1-4f17-98da-760acf756184"
       }
     },
-    "owner": "zzhengweii",
+    "owner": "varsitysync",
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/7d1eb585-971b-44be-9d17-05fbb6ff048f"
+      "url": "https://u.expo.dev/36bfb03b-1db1-4f17-98da-760acf756184"
     }
   }
 }
