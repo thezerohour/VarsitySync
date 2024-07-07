@@ -55,7 +55,7 @@ export default function ForgetPasswordScreen() {
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
-            <View className= "flex-row justify-start mt-5">
+            <View className= "flex-row justify-start mt-5" style = {{width: 50, height: 50}}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                     className= "ml-4">
