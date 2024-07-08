@@ -81,7 +81,7 @@ export default function ForgetPasswordScreen() {
                 placeholder='Enter Email'
                 onChangeText={value=>setemail(value)}
                 autoCapitalize= 'none'
-                autoCorrect= 'none'
+                autoCorrect={false}
             />
             <Text className=" flex text-xs text-slate-900 justify-center mt-4 ml-1">
                 Enter your email and we'll send you a link to reset your password

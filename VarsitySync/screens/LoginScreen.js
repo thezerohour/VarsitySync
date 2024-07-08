@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
-import { loginUser } from '../redux/slices/userActions';
-import { useDispatch } from 'react-redux';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
@@ -15,7 +13,6 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function LoginScreen() {
     const navigation =useNavigation();
-    const dispatch = useDispatch();
 
     
     const [visible, setVisible] = useState(true);
@@ -26,7 +23,10 @@ export default function LoginScreen() {
     const handleLogin = async () => {
     if (email && password) {
       try {
-        await dispatch(loginUser(email, password));
+        await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+        })
         navigation.navigate("Home");
       } catch (error) {
         Alert.alert('Error', error.message);

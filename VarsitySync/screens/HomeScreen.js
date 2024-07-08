@@ -5,19 +5,16 @@ import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native';
 import { auth } from '../firebaseConfig';
-import { logoutUser } from '../redux/slices/userActions';
-import { useDispatch } from 'react-redux';
 
 
 
 export default function HomeScreen() {
   const navigation =useNavigation();
   const animation = useRef(null);
-  const dispatch = useDispatch();
 
   const handleLogOut = async () => {
     try {
-      await dispatch(logoutUser());
+      await auth.signOut();
       navigation.navigate('Login');
     } catch (error) {
       Alert.alert('Error', error.message);
