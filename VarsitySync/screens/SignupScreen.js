@@ -4,10 +4,9 @@ import { colors } from '../theme '
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {ArrowLeftIcon} from 'react-native-heroicons/solid'
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from '../firebaseConfig'
-import { registerUser } from '../redux/slices/userActions';
-import { useDispatch } from 'react-redux';
+
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -16,9 +15,7 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function SignupScreen() {
     const navigation =useNavigation();
-    const dispatch = useDispatch();
-    
-   
+       
     const [visible, setVisible] = useState(true);
 
     const [email, setemail] = useState('');
@@ -28,9 +25,13 @@ export default function SignupScreen() {
     const handleAddUser = async () => {
         if (email && password) {
           try {
-            await dispatch(registerUser(email, password, displayName));
-            navigation.navigate('Login');
-          } catch (error) {
+            await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                updateProfile(user, { displayName });
+            })
+          } 
+          catch (error) {
             Alert.alert('Error', error.message);
           }
         } else {
