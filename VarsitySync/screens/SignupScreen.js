@@ -50,7 +50,7 @@ export default function SignupScreen() {
                 </TouchableOpacity>
             </View>
 
-            <View className="flex-row justify-center mt-[-16px]">
+            <View className="flex-row justify-center mt-[-40px]">
                 <Image source={require("../assets/images/AppName2.png")}
                     style= {{width: 350, height: 300}} />
             </View>
