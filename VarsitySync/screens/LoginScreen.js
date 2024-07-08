@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
-import { colors } from '../theme '
+import { colors } from '../theme'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
@@ -17,24 +17,31 @@ export default function LoginScreen() {
     
     const [visible, setVisible] = useState(true);
 
-    const [email, setemail] = useState('');
-    const [password, setpassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    // const [loading, setLoading] = useState(false);
 
     const handleLogin = async () => {
-    if (email && password) {
-      try {
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-        })
-        navigation.navigate("Home");
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      }
-    } else {
-      Alert.alert('Error', 'Please enter both email and password');
-    }
-  };
+        // setLoading(true);
+        if (email && password) {
+            try {
+              await signInWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                  const user = userCredential.user;
+              })
+              console.log('login successful')
+              navigation.navigate("Main");
+            } catch (error) {
+                console.log(error);
+                alert('Invalid email address or password.');
+        // } finally {
+          // setLoading(false); // Stops the loading indicator
+            } 
+        } else {
+            Alert.alert('Error', 'Please enter both email and password');
+        };
+    };
+
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
@@ -66,7 +73,7 @@ export default function LoginScreen() {
                     <TextInput
                         className= "flex ml-1 justify-center text-base mt-[-6px]"
                         placeholder='Enter Email'
-                        onChangeText={value=>setemail(value)}
+                        onChangeText={value=>setEmail(value)}
                         autoCapitalize='none'
                         autoCorrect={false}
                     />
@@ -82,7 +89,7 @@ export default function LoginScreen() {
                     className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
                     placeholder='Enter Password'
                     secureTextEntry ={visible}
-                    onChangeText={value=>setpassword(value)}
+                    onChangeText={value=>setPassword(value)}
                     autoCapitalize= 'none'
                     autoCorrect={false}
                 />

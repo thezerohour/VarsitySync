@@ -7,7 +7,7 @@ import {
     FlatList,
     Modal,
 } from "react-native";
-import { colors } from "../theme ";
+import { colors } from "../theme";
 import { AntDesign } from "@expo/vector-icons";
 import TodoList from "../components/TodoList";
 import AddListModal from "../components/AddListModal";

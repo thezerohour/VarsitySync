@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React, { Component } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { colors } from "../theme ";
+import { colors } from "../theme";
 
 export default class TodoModal extends Component {
     state = {

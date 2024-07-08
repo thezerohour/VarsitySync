@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
 import React, { useRef } from 'react'
-import { colors } from '../theme '
+import { colors } from '../theme'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native';
