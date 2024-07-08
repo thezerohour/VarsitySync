@@ -12,16 +12,95 @@ import { AntDesign } from "@expo/vector-icons";
 import TodoList from "../components/TodoList";
 import AddListModal from "../components/AddListModal";
 import tempData from "../tempData";
-import { auth } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
+
+addList = async (list) => {
+    try {
+        const userListsRef = doc(db, "users", auth.currentUser.uid, "lists");
+        const userListsSnapshot = await getDoc(userListsRef);
+        if (userListsSnapshot.exists()) {
+            const lists = userListsSnapshot.data().lists;
+            const updatedLists = [...lists, list];
+            await setDoc(userListsRef, { lists: updatedLists });
+            this.setState({ lists: updatedLists });
+        } else {
+            await setDoc(userListsRef, { lists: [list] });
+            this.setState({ lists: [list] });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+updateList = async (list) => {
+    try {
+        const userListsRef = doc(db, "users", auth.currentUser.uid, "lists");
+        const userListsSnapshot = await getDoc(userListsRef);
+        if (userListsSnapshot.exists()) {
+            const lists = userListsSnapshot.data().lists;
+            const updatedLists = lists.map((item) => {
+                return item.id === list.id ? list : item;
+            });
+            await setDoc(userListsRef, { lists: updatedLists });
+            this.setState({ lists: updatedLists });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export default class ToDoList extends React.Component {
     state = {
         addTodoVisible: false,
-        lists: tempData,
-        user: {}
+        user: auth.currentUser,
+        lists: []
     };
-        
 
+
+    fetchLists = async () => {
+        try {
+            const userListsRef = doc(db, "tasks", auth.currentUser.uid);
+            const userListsSnapshot = await getDoc(userListsRef);
+            if (userListsSnapshot.exists()) {
+                const lists = userListsSnapshot.data();
+                this.setState({ lists: lists });
+                console.log(lists);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        const todoRef = collection(FIRESTORE_DB, 'todos');
+
+        const subscriber = onSnapshot(todoRef, {
+            next: (snapshot) => {
+                const todos = [];
+                snapshot.docs.forEach((doc) => {
+                    todos.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                setTodos(todos);
+            }
+        });
+
+        // // Unsubscribe from events when no longer in use
+        return () => subscriber();
+    }, []);
+
+    componentDidMount() {
+        this.fetchLists();
+
+
+        
+    }
+    
     toggleAddTodoModal() {
         this.setState({ addTodoVisible: !this.state.addTodoVisible });
     }
@@ -63,7 +142,7 @@ export default class ToDoList extends React.Component {
                 </Modal>
 
                 <View>
-                    <Text>User: {auth.currentUser.displayName}</Text>
+                    <Text>User: {this.state.user.displayName}</Text>
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
