@@ -9,50 +9,28 @@ import TaskScreen from '../screens/TaskScreen';
 import ScheduleScreen from '../screens/ScheduleScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import { onAuthStateChanged } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { auth } from '../firebaseConfig';
-import { setUser } from '../redux/slices/user';
 import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TodoList from '../components/TodoList';
+
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigation() {
-  const {user} = useSelector(state => state.user);
-
-  const dispatch = useDispatch();
-
-  onAuthStateChanged(auth, (u) => {
-    dispatch(setUser(u));
-  });
-
-  if(user){
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
-          <Stack.Screen options= {{headerShown: false}} name="Home" component={TabNavigator} />
-          <Stack.Screen options= {{headerShown: false}} name="Task" component={TaskScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  } else {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
           <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="SignUp" component={SignupScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="Home" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
-    );
-  }
+    )
 }
+
 const TabNavigator = () => {
   // Schedule Screen
   // Task Screen

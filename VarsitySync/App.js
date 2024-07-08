@@ -5,9 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 function App() {
   
   return (
-    <NavigationContainer>
-      <AppNavigation />
-    </NavigationContainer>
+    <AppNavigation />
   );
 }
 
