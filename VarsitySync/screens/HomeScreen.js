@@ -25,7 +25,7 @@ export default function HomeScreen() {
   }
   return (
   <SafeAreaView className = 'flex-1' style= {{backgroundColor: colors.background}}>
-    <StatusBar barStyle="light-content" backgroundColor={colors.background} />
+    <StatusBar barStyle="light-content" />
     <View className= 'flex-1 flex justify-around my-4'>
       <Text 
         className = 'text-slate-50 font-bold text-4xl text-center'>
