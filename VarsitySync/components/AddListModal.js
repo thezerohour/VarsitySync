@@ -8,7 +8,7 @@ import {
     TextInput,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { colors } from "../theme ";
+import { colors } from "../theme";
 import tempData from "../tempData";
 
 export default class AddListModal extends Component {

@@ -1,37 +1,31 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Image } from 'react-native';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
-import HomeScreen from '../screens/HomeScreen';
-import TaskScreen from '../screens/TaskScreen';
-import ScheduleScreen from '../screens/ScheduleScreen';
-import ProgressScreen from '../screens/ProgressScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import BottomTabNavigator from './tabNavigation';
 
 
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default function AppNavigation() {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
           <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="SignUp" component={SignupScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="SignUp" component={SignupScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Login" component={LoginScreen} />
-          <Stack.Screen options= {{headerShown: false}} name="Home" component={TabNavigator} />
+          <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="Main" component={BottomTabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     )
 }
 
-const TabNavigator = () => {
+{/* const TabNavigator = () => {
   // Schedule Screen
   // Task Screen
   // Home Screen 
@@ -71,4 +65,4 @@ const TabNavigator = () => {
 
   </Tab.Navigator>
  )
-}
+} */}

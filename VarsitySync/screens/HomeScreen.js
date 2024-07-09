@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, StatusBar, Al } from 'react-native'
 import React, { useRef } from 'react'
-import { colors } from '../theme '
+import { colors } from '../theme'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native';
@@ -26,7 +26,7 @@ export default function HomeScreen() {
     <View className= 'flex-1 flex justify-around my-4'>
       <Text 
         className = 'text-slate-50 font-bold text-4xl text-center'>
-        Welcome {auth.currentUser.displayName}!
+        Welcome 
       </Text>
       <View className ='flex-row justify-center mt-[-120px]'>
       <LottieView

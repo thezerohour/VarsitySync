@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
-import { colors } from "../theme ";
+import { colors } from "../theme";
 import TodoModal from "./TodoModal";
 
 export default class TodoList extends React.Component {
