@@ -59,7 +59,7 @@ export default function LoginScreen() {
             </View>
         </SafeAreaView>
 
-        <View behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
+        <View className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
             style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
      
             <View className= "space-y-2">

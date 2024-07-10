@@ -23,7 +23,7 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Main" component={BottomTabNavigator} />
           <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
-          <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Feedback" component={FeedbackScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'formSheet'}} name="Feedback" component={FeedbackScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )
