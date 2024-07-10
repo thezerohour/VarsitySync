@@ -60,7 +60,7 @@ export default function ProfileScreen() {
   if (!userData) {
     return (
       <View style={styles.container}>
-        <Text>Loading user data...</Text>
+        <Text className= "text-white">Loading user data...</Text>
       </View>
     );
   }
@@ -72,13 +72,13 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
-    <View className= "flex-row justify-end mb-[-10px] mt-[-20px]" style = {{width: 90, height: 90}}>
+    <View className= "flex-row justify-end mb-[-10px] mt-[-10px]" style = {{width: 90, height: 90}}>
         <TouchableOpacity
             onPress={() => navigation.navigate("Feedback")}
                     className= "mr-[-125px] mt-12">
                     <QuestionMarkCircleIcon size="35" color="white"/>
         </TouchableOpacity>
-      </View>
+    </View>
       
       <View style={{alignItems: "center", marginTop: -20}}>
         <Image source={ profileImages[userData.profileImage - 1] } style={styles.profileImage} />
@@ -112,7 +112,7 @@ export default function ProfileScreen() {
 
       </View>
 
-      <View className= 'space-y-4 mt-20' style={{width: 400}}>
+      <View className= 'space-y-4 mt-20 mb-8' style={{width: 400}}>
           <TouchableOpacity 
             onPress={() => handleLogOut()}
             className= "py-4 bg-slate-50 mx-8 rounded-xl">
