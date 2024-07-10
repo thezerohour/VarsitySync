@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, Platform, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -104,17 +104,17 @@ export default function SignupScreen() {
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
-            <View className= "flex-row justify-start" style = {{width: 60, height: 60}}>
+            <View className= "flex-row justify-start" style = {{width: 80, height: 80}}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    className= "ml-4">
-                    <ArrowLeftIcon size="24" color="white"/>
+                    className= "ml-4 mt-5">
+                    <ArrowLeftIcon size="30" color="white"/>
                 </TouchableOpacity>
             </View>
 
-            <View className="flex-row justify-center mt-[-45px]">
+            <View className="flex-row justify-center mb-8 mt-[-30px]">
                 <Image source= {profileImages[profileImage - 1]}
-                    style= {{width: 200, height: 200}} />
+                    style= {{width: 250, height: 250}} />
                 <TouchableOpacity onPress={() => setProfileImage((profileImage % 5) + 1)}>
                     <View style= {{height: 40, width: 40, borderRadius: 20, alignItems: "center", marginTop: 120, marginLeft: -65}} className= "bg-white justify-center"  >
                         <Ionicons name={'swap-horizontal'} color={colors.background} size={25} />
@@ -123,7 +123,7 @@ export default function SignupScreen() {
             </View>
         </SafeAreaView>
 
-        <KeyboardAvoidingView className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
                 style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
             <ScrollView>
             
