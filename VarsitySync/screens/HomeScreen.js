@@ -12,14 +12,6 @@ export default function HomeScreen() {
   const navigation =useNavigation();
   const animation = useRef(null);
 
-  const handleLogOut = async () => {
-    try {
-      await auth.signOut();
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-  }
   return (
   <SafeAreaView className = 'flex-1' style= {{backgroundColor: colors.background}}>
     <StatusBar barStyle="light-content" />
@@ -52,16 +44,7 @@ export default function HomeScreen() {
             </Text>
         </TouchableOpacity>
       </View>
-      <View className= 'space-y-4 mt-[-100px]'>
-        <TouchableOpacity 
-          onPress={() => handleLogOut()}
-          className= "py-3 bg-slate-50 mx-7 rounded-xl">
-            <Text
-              className= 'text-xl font-bold text-center text-blue-950 '>
-              Log Out
-            </Text>
-        </TouchableOpacity>
-      </View>
+      
     </View>
   </SafeAreaView>
   )

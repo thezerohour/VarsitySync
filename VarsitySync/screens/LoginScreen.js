@@ -43,7 +43,7 @@ export default function LoginScreen() {
     };
 
   return (
-    <View behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
+    <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
             <View className= "flex-row justify-start" style = {{width: 70, height: 70}}>
                 <TouchableOpacity
@@ -59,9 +59,9 @@ export default function LoginScreen() {
             </View>
         </SafeAreaView>
 
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
+        <View behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
             style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
-            
+     
             <View className= "space-y-2">
                 <Text className="text-slate-900 ml-4 mt-2">
                     Email
@@ -121,7 +121,7 @@ export default function LoginScreen() {
                     <Text className= 'font-semibold text-blue-500'> Sign Up</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     </View>
   )
 }

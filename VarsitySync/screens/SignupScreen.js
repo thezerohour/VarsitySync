@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Platform, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, Platform, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -38,12 +38,6 @@ export default function SignupScreen() {
     const [cca, setCCA] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const checkUsernameExists = async (username) => {
-        const usersRef = collection(db, 'users');
-        const q = query(usersRef, where('username', '==', username));
-        const querySnapshot = await getDocs(q);
-        return !querySnapshot.empty;
-      };
     
     const validatePassword = (password) => {
         const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -77,7 +71,7 @@ export default function SignupScreen() {
           // Store user data in Firebase Firestore
           await setDoc(doc(db, "users", response.user.uid), {
             year: year,
-            CCA: cca,
+            cca: cca,
             email: email,
             name: name,
             profileImage: profileImage,
@@ -116,132 +110,137 @@ export default function SignupScreen() {
                 <Image source= {profileImages[profileImage - 1]}
                     style= {{width: 250, height: 250}} />
                 <TouchableOpacity onPress={() => setProfileImage((profileImage % 5) + 1)}>
-                    <View style= {{height: 40, width: 40, borderRadius: 20, alignItems: "center", marginTop: 120, marginLeft: -65}} className= "bg-white justify-center"  >
+                    <View style= {{height: 40, width: 40, borderRadius: 20, alignItems: "center", marginTop: 150, marginLeft: -75}} className= "bg-white justify-center"  >
                         <Ionicons name={'swap-horizontal'} color={colors.background} size={25} />
                     </View>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
 
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
-                style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
-            <ScrollView>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView className= " bg-white px-8 pt-8 mt-[-20px]" style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
+        
+            <View className= "from space-y-2">
+                <Text className="text-slate-900 ml-4 mt-2">Email</Text>
+            </View>
+        
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                    <EvilIcons name="envelope" size={35} color="lightgrey" className='mr-8 justify-center' />
+                    <TextInput
+                        className= "flex ml-1 justify-center text-base mt-[-6px]"
+                        placeholder='steven123@gmail.com'
+                        onChangeText={value=>setEmail(value)}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+            </View>
+        
+            <View className= "space-y-2 mt-[-10px]">
+                <Text className="text-slate-900 ml-4 mt-5">Name</Text>
+            </View>
+        
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                <Ionicons name="person" size={25} color="lightgrey" className='mr-8 justify-center' />
+                <TextInput
+                    className= "flex ml-1 justify-center text-base mt-[-7px]" 
+                    placeholder='Enter Name'
+                    onChangeText={value=>setName(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect={false}
+                />
+            </View>
+
+            <View className= "space-y-2 mt-[-10px]">
+                <Text className="text-slate-900 ml-4 mt-5">CCA</Text>
+            </View>
             
-                <View className= "from space-y-2">
-                    <Text className="text-slate-900 ml-4 mt-2">Email</Text>
-                </View>
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                <Ionicons name="trophy" size={25} color="lightgrey" className='mr-8 justify-center' />
+                <TextInput
+                    className= "flex ml-1 justify-center text-base mt-[-7px]" 
+                    placeholder='Enter CCA'
+                    onChangeText={value=>setCCA(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect={false}
+                />
+            </View>
+
+            <View className= "space-y-2 mt-[-10px]">
+                <Text className="text-slate-900 ml-4 mt-5">Year</Text>
+            </View>
             
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                        <EvilIcons name="envelope" size={35} color="lightgrey" className='mr-8 justify-center' />
-                        <TextInput
-                            className= "flex ml-1 justify-center text-base mt-[-6px]"
-                            placeholder='steven123@gmail.com'
-                            onChangeText={value=>setEmail(value)}
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                        />
-                </View>
-            
-                <View className= "space-y-2 mt-[-10px]">
-                    <Text className="text-slate-900 ml-4 mt-5">Name</Text>
-                </View>
-            
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                    <Ionicons name="person" size={25} color="lightgrey" className='mr-8 justify-center' />
-                    <TextInput
-                        className= "flex ml-1 justify-center text-base mt-[-7px]" 
-                        placeholder='Enter Name'
-                        onChangeText={value=>setName(value)}
-                        autoCapitalize= 'none'
-                        autoCorrect={false}
-                    />
-                </View>
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                <Ionicons name="calendar" size={25} color="lightgrey" className='mr-8 justify-center' />
+                <TextInput
+                    className= "flex ml-1 justify-center text-base mt-[-7px]" 
+                    placeholder='Enter Year with CCA'
+                    onChangeText={value=>setYear(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect={false}
+                />
+            </View>
 
-                <View className= "space-y-2 mt-[-10px]">
-                    <Text className="text-slate-900 ml-4 mt-5">CCA</Text>
-                </View>
-                
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                    <Ionicons name="trophy" size={25} color="lightgrey" className='mr-8 justify-center' />
-                    <TextInput
-                        className= "flex ml-1 justify-center text-base mt-[-7px]" 
-                        placeholder='Enter CCA'
-                        onChangeText={value=>setCCA(value)}
-                        autoCapitalize= 'none'
-                        autoCorrect={false}
-                    />
-                </View>
+            <View className= "space-y-2 mt-[-30px]">
+                <Text className="text-slate-900 ml-4 mt-10">Password</Text>
+            </View>
 
-                <View className= "space-y-2 mt-[-10px]">
-                    <Text className="text-slate-900 ml-4 mt-5">Year</Text>
-                </View>
-                
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                    <Ionicons name="calendar" size={25} color="lightgrey" className='mr-8 justify-center' />
-                    <TextInput
-                        className= "flex ml-1 justify-center text-base mt-[-7px]" 
-                        placeholder='Enter Year with CCA'
-                        onChangeText={value=>setYear(value)}
-                        autoCapitalize= 'none'
-                        autoCorrect={false}
-                    />
-                </View>
-
-                <View className= "space-y-2 mt-[-30px]">
-                    <Text className="text-slate-900 ml-4 mt-10">Password</Text>
-                </View>
-    
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                    <AntDesign name="lock" size={27} color="lightgrey" />
-                    <TextInput
-                        className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
-                        placeholder='Enter Password'
-                        secureTextEntry ={visible}
-                        onChangeText={value=>setPassword(value)}
-                        autoCapitalize= 'none'
-                        autoCorrect={false}
-                    />
-                    <TouchableOpacity className="absolute left-72 mt-[20px]"
-                        onPress={() => {
-                            setVisible(visible => !visible)}
-                    }>
-                        <Feather name= {visible ? "eye-off" : "eye"} size={25} color="lightgrey"/>
-                    </TouchableOpacity>
-                </View>
-
-                <View className= "space-y-2 mt-[-30px]">
-                    <Text className="text-slate-900 ml-4 mt-10">Confirm Password</Text>
-                </View>
-
-                <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
-                    <AntDesign name="lock" size={27} color="lightgrey" />
-                    <TextInput
-                        className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
-                        placeholder='Confirm Password'
-                        secureTextEntry ={show}
-                        onChangeText={value=>setConfirmPassword(value)}
-                        autoCapitalize= 'none'
-                        autoCorrect={false}
-                    />
-                    <TouchableOpacity className="absolute left-72 mt-[20px]"
-                        onPress={() => {
-                            setShow(show => !show)}
-                    }>
-                        <Feather name= {show ? "eye-off" : "eye"} size={25} color="lightgrey"/>
-                    </TouchableOpacity>
-                </View>
-
-                <View className= "space-y-2 mb-2">
-                    <Text className=" text-slate-900 ml-2 text-xs">Password must be be at least 8 characters in length. consist of a mix of alpha, at least one numeric and special characters</Text>
-                </View>
-
-                <TouchableOpacity onPress={signUp}
-                    className= "py-3 mx-1 rounded-xl mt-4" style= {{backgroundColor: colors.background}}>
-                    <Text className="text-center text-white font-bold text-xl">
-                        Sign Up
-                    </Text>
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                <AntDesign name="lock" size={27} color="lightgrey" />
+                <TextInput
+                    className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
+                    placeholder='Enter Password'
+                    secureTextEntry ={visible}
+                    onChangeText={value=>setPassword(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect={false}
+                />
+                <TouchableOpacity className="absolute left-72 mt-[20px]"
+                    onPress={() => {
+                        setVisible(visible => !visible)}
+                }>
+                    <Feather name= {visible ? "eye-off" : "eye"} size={25} color="lightgrey"/>
                 </TouchableOpacity>
-            </ScrollView>
+            </View>
+
+            <View className= "space-y-2 mt-[-30px]">
+                <Text className="text-slate-900 ml-4 mt-10">Confirm Password</Text>
+            </View>
+
+            <View className= 'p-4 bg-gray-100 text-slate-900 rounded-2xl mb-3 mt-2 flex-row'>
+                <AntDesign name="lock" size={27} color="lightgrey" />
+                <TextInput
+                    className= "flex-1 ml-1 justify-center text-base mt-[-4px]"
+                    placeholder='Confirm Password'
+                    secureTextEntry ={show}
+                    onChangeText={value=>setConfirmPassword(value)}
+                    autoCapitalize= 'none'
+                    autoCorrect={false}
+                />
+                <TouchableOpacity className="absolute left-72 mt-[20px]"
+                    onPress={() => {
+                        setShow(show => !show)}
+                }>
+                    <Feather name= {show ? "eye-off" : "eye"} size={25} color="lightgrey"/>
+                </TouchableOpacity>
+            </View>
+
+            <View className= "space-y-2 mb-2">
+                <Text className=" text-slate-900 ml-2 text-xs">Password must be be at least 8 characters in length. consist of a mix of alpha, at least one numeric and special characters</Text>
+            </View>
+
+            <TouchableOpacity onPress={signUp}
+                className= "py-3 mx-1 rounded-xl mt-4" style= {{backgroundColor: colors.background, marginBottom: 70}}>
+                <Text className="text-center text-white font-bold text-xl">
+                    Sign Up
+                </Text>
+            </TouchableOpacity>
+        </ScrollView>
+        </TouchableWithoutFeedback>
+
         </KeyboardAvoidingView>
     </View>
   )

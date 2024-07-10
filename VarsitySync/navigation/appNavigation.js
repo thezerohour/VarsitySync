@@ -5,6 +5,8 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
 import BottomTabNavigator from './tabNavigation';
 
 
@@ -20,6 +22,8 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Main" component={BottomTabNavigator} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Feedback" component={FeedbackScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )
