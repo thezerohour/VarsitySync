@@ -10,7 +10,7 @@ import { auth } from '../firebaseConfig'
 export default function ForgetPasswordScreen() {
     const navigation =useNavigation();
 
-    const [email, setemail] = useState('');
+    const [email, setEmail] = useState('');
     
     // forget password link
     const forgetPassword = () => {
@@ -55,11 +55,11 @@ export default function ForgetPasswordScreen() {
   return (
     <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
-            <View className= "flex-row justify-start mt-5" style = {{width: 50, height: 50}}>
+            <View className= "flex-row justify-start mt-5" style = {{width: 60, height: 60}}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    className= "ml-4">
-                    <ArrowLeftIcon size="24" color="white"/>
+                    className= "ml-4 mt-5">
+                    <ArrowLeftIcon size="30" color="white"/>
                 </TouchableOpacity>
             </View>
 
@@ -79,7 +79,7 @@ export default function ForgetPasswordScreen() {
             <TextInput
                 className= "p-4 bg-gray-100 text-slate-900 rounded-2xl justify-center mt-9" 
                 placeholder='Enter Email'
-                onChangeText={value=>setemail(value)}
+                onChangeText={value=>setEmail(value)}
                 autoCapitalize= 'none'
                 autoCorrect={false}
             />

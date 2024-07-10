@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
+import { View, Text, Platform, TouchableOpacity, Image, TextInput, Alert, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../theme'
 import { SafeAreaView } from 'react-native'
@@ -43,23 +43,23 @@ export default function LoginScreen() {
     };
 
   return (
-    <View className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
+    <View behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white" style={{backgroundColor: colors.background}}>
         <SafeAreaView className= "flex">
-            <View className= "flex-row justify-start" style = {{width: 50, height: 50}}>
+            <View className= "flex-row justify-start" style = {{width: 70, height: 70}}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    className= "ml-4">
-                    <ArrowLeftIcon size="24" color="white"/>
+                    className= "ml-4 mt-2">
+                    <ArrowLeftIcon size="30" color="white"/>
                 </TouchableOpacity>
             </View>
 
-            <View className="flex-row justify-center mt-[-16px]">
+            <View className="flex-row justify-center mt-[-35px]">
                 <Image source={require("../assets/images/AppName2.png")}
                     style= {{width: 350, height: 300}} />
             </View>
         </SafeAreaView>
 
-        <View className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className= "flex-1 bg-white px-8 pt-8 mt-[-20px]"
             style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
             
             <View className= "space-y-2">
@@ -121,7 +121,7 @@ export default function LoginScreen() {
                     <Text className= 'font-semibold text-blue-500'> Sign Up</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     </View>
   )
 }
