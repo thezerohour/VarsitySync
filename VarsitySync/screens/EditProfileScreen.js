@@ -109,6 +109,7 @@ export default function EditProfileScreen() {
                     <TextInput
                         className= "flex-1 ml-1 justify-center text-base mt-[-7px]" 
                         placeholder='CCA'
+                        value={cca}
                         onChangeText={setCCA}
                         autoCapitalize= 'none'
                         autoCorrect={false}
@@ -120,6 +121,7 @@ export default function EditProfileScreen() {
                     <TextInput
                         className= "flex-1 ml-1 justify-center text-base mt-[-7px]" 
                         placeholder='Year with CCA'
+                        value={year}
                         onChangeText={setYear}
                         autoCapitalize= 'none'
                         autoCorrect={false}
