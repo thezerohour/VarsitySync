@@ -6,6 +6,7 @@ import {
     View,
     FlatList,
     Modal,
+    StatusBar,
 } from "react-native";
 import { colors } from "../theme";
 import { AntDesign } from "@expo/vector-icons";
@@ -51,6 +52,7 @@ export default class ToDoList extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="light-content" />
                 <Modal
                     animationType="slide"
                     visible={this.state.addTodoVisible}

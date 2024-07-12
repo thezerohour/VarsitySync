@@ -7,6 +7,8 @@ import SignupScreen from '../screens/SignupScreen';
 import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
+import GradesScreen from '../screens/GradesScreen';
+import TrainingScreen from '../screens/TrainingScreen';
 import BottomTabNavigator from './tabNavigation';
 
 
@@ -24,6 +26,8 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false}} name="Main" component={BottomTabNavigator} />
           <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'formSheet'}} name="Feedback" component={FeedbackScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Grades" component={GradesScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Training" component={TrainingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )

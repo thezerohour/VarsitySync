@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import { auth, db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native'
@@ -71,6 +71,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+    <StatusBar barStyle="light-content" />
 
     <View className= "flex-row justify-end mb-[-10px] mt-[-10px]" style = {{width: 90, height: 90}}>
         <TouchableOpacity
