@@ -36,6 +36,8 @@
     },
     "updates": {
       "url": "https://u.expo.dev/36bfb03b-1db1-4f17-98da-760acf756184"
-    }
-  }
+    },
+    "sdkVersion": "51.0.0"
+  },
+  "name": "varsitysync"
 }
