@@ -3,8 +3,8 @@ import React, { useRef} from 'react'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import { FontAwesome6 } from '@expo/vector-icons';
-import { AcademicCapIcon} from 'react-native-heroicons/solid'
+import { AcademicCapIcon } from 'react-native-heroicons/solid'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import LottieView from 'lottie-react-native';
 
@@ -50,7 +50,7 @@ export default function ProgressScreen() {
             <TouchableOpacity 
                 onPress={() => navigation.navigate("Training")}
                 className= "py-3 mx-1 rounded-xl mt-7 bg-blue-500 flex-row justify-center">
-                <FontAwesome6 name="dumbbell" size="30" color="white" />
+                <Ionicons name="pulse-outline" size={30} color="lightgrey" />
                 <Text className="text-center text-white font-bold text-2xl" style= {{marginLeft: 5, marginRight: 10}}>
                     Training
                 </Text>
