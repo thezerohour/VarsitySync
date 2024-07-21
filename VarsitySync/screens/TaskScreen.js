@@ -64,17 +64,11 @@ export default class ToDoList extends React.Component {
                     />
                 </Modal>
 
-                <View>
-                    <Text>User: {auth.currentUser.displayName}</Text>
-                </View>
 
                 <View style={{ flexDirection: "row" }}>
                     <View style={styles.divider} />
                     <Text style={styles.title}>
-                        Todo{" "}
-                        <Text style={{ fontWeight: "300", color: colors.blue }}>
-                            List
-                        </Text>
+                        Tasks{" "}
                     </Text>
                     <View style={styles.divider} />
                 </View>

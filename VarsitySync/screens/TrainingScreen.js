@@ -6,14 +6,14 @@ import { auth, db } from '../firebaseConfig'
 import { addDoc, collection } from 'firebase/firestore';
 
 
-import { ArrowLeftIcon, TagIcon } from 'react-native-heroicons/solid'
+import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 
 export default function TrainingScreen() {
     const navigation =useNavigation();
    
   return (
     <View className= "flex-1 bg-white">
-        <SafeAreaView className= "flex mt-[-10px]">
+        <SafeAreaView className= "flex mt-5">
             <View className= "flex-row justify-start" style = {{width: 70, height: 70}}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}

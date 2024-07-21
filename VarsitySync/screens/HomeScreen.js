@@ -1,51 +1,72 @@
-import { View, Text, Image, TouchableOpacity, StatusBar, Al } from 'react-native'
-import React, { useRef } from 'react'
-import { colors } from '../theme'
+import { View, Text, TouchableOpacity, StatusBar, ImageBackground } from 'react-native'
+import React, { useEffect, useState } from 'react'
+
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import LottieView from 'lottie-react-native';
-import { auth } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 
 
 export default function HomeScreen() {
   const navigation =useNavigation();
-  const animation = useRef(null);
+
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const uid = currentUser.uid;
+        try {
+          const userDocRef = doc(db, 'users', uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+  
+          if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+            setUserName(userData.name);
+          } else {
+            console.log('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   return (
-  <SafeAreaView className = 'flex-1' style= {{backgroundColor: colors.background}}>
-    <StatusBar barStyle="light-content" />
-    <View className= 'flex-1 flex justify-around my-4'>
-      <Text 
-        className = 'text-slate-50 font-bold text-4xl text-center'>
-        Welcome 
-      </Text>
-      <View className ='flex-row justify-center mt-[-120px]'>
-      <LottieView
-        className = ''
-        autoPlay
-        ref={animation}
-        style={{
-          width: 350,
-          height: 350,
-          backgroundColor: colors.background,
-        }}
-        // Find more Lottie files at https://lottiefiles.com/featured
-        source={require('../assets/lottie /sport.json')}
-      />
-      </View>
-      <View className= 'space-y-4 mt-[-100px]'>
-        <TouchableOpacity 
-          onPress={() => navigation.navigate("ToDoList")}
-          className= "py-3 bg-slate-50 mx-7 rounded-xl">
-            <Text
-              className= 'text-xl font-bold text-center text-blue-950 '>
-              To Do List
-            </Text>
-        </TouchableOpacity>
-      </View>
-      
-    </View>
-  </SafeAreaView>
+    <ImageBackground 
+    source= {require('../assets/images/homescreen.png')}
+    style= {{width: 450, height: 550, marginTop: -30, marginLeft: -30}}
+    >
+      <SafeAreaView>
+        <Text style= {{
+          paddingHorizontal: 10,
+          paddingTop: 40,
+          fontSize: 35,
+          fontWeight:"800" ,
+          color: "white",
+          marginLeft: 30,
+        }}>
+          Welcome back 
+        </Text>
+        <Text style= {{
+          paddingHorizontal: 10,
+          paddingTop: 0,
+          fontSize: 35,
+          fontWeight:"800" ,
+          color: "white",
+          marginLeft: 30,
+        }}>
+        {userName} !
+        </Text>
+      </SafeAreaView>
+
+
+    </ImageBackground>
+ 
   )
 }

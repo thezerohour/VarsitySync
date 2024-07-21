@@ -50,7 +50,7 @@ export default function ProgressScreen() {
             <TouchableOpacity 
                 onPress={() => navigation.navigate("Training")}
                 className= "py-3 mx-1 rounded-xl mt-7 bg-blue-500 flex-row justify-center">
-                <Ionicons name="pulse-outline" size={30} color="lightgrey" />
+                <Ionicons name="pulse-outline" size={30} color="white" />
                 <Text className="text-center text-white font-bold text-2xl" style= {{marginLeft: 5, marginRight: 10}}>
                     Training
                 </Text>
