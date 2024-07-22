@@ -45,12 +45,12 @@ export default function HomeScreen() {
   return (
     <ImageBackground 
     source= {require('../assets/images/homescreen.png')}
-    style= {{width: 450, height: 550, marginTop: -29, marginLeft: -30}}
+    style= {{width: 450, height: 550, marginTop: -32, marginLeft: -30}}
     >
       <SafeAreaView>
         <Text style= {{
           paddingHorizontal: 10,
-          paddingTop: 50,
+          paddingTop: 65,
           fontSize: 35,
           fontWeight:"800" ,
           color: "white",
