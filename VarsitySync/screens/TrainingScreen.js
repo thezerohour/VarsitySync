@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f0f0f0",
         padding: 15,
         marginHorizontal: 10,
-        marginTop: 5,
+        marginTop: 9,
     },
     block: {
         flexDirection: "row",
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#90c1f8",
         padding: 8,
         alignSelf: "flex-start",
-        marginTop: -3,
+        marginTop: 1,
     },
     thrash: {
         flexDirection: "row",
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         fontSize: 22,
         fontWeight: "900",
-        alignSelf: "flex-star",
-        marginLeft: 30,
-        marginTop: -22,
+        alignSelf: "flex-start",
+        marginLeft: 14,
+        marginTop: -5,
     },
     circleButton: {
         borderRadius: 60,
