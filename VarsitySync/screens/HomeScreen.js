@@ -1,10 +1,15 @@
-import { View, Text, TouchableOpacity, StatusBar, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { auth, db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+
+import { ClipboardDocumentCheckIcon, CalendarDaysIcon} from 'react-native-heroicons/outline'
+
+import ImageSlider from '../components/ImageSlider';
+import { sliderImages } from '../constants';
 
 
 
@@ -40,12 +45,12 @@ export default function HomeScreen() {
   return (
     <ImageBackground 
     source= {require('../assets/images/homescreen.png')}
-    style= {{width: 450, height: 550, marginTop: -30, marginLeft: -30}}
+    style= {{width: 450, height: 550, marginTop: -29, marginLeft: -30}}
     >
       <SafeAreaView>
         <Text style= {{
           paddingHorizontal: 10,
-          paddingTop: 40,
+          paddingTop: 50,
           fontSize: 35,
           fontWeight:"800" ,
           color: "white",
@@ -61,12 +66,59 @@ export default function HomeScreen() {
           color: "white",
           marginLeft: 30,
         }}>
-        {userName} !
+        {userName}!
         </Text>
+
+        {/* image slider*/ }
+        <View style= {{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 33,}}>
+          <ImageSlider data= {sliderImages}/>
+        </View>
+
+        {/* task */}
+        <View style= {styles.container1}>
+          <ClipboardDocumentCheckIcon size= '30' style={{color: '#06213E', marginTop: -3}} />
+          <Text style= {styles.text}> Task </Text>
+        </View>
+
+        {/* schedule */}
+        <View style= {styles.container2}>
+          <CalendarDaysIcon size= '30' style={{color: '#06213E', marginTop: -5}} />
+          <Text style= {styles.text}> Schedule </Text>
+        </View>
+
+
       </SafeAreaView>
+
 
 
     </ImageBackground>
  
   )
 }
+
+const styles = StyleSheet.create({
+  container1 : {
+    marginTop: 30, 
+    backgroundColor: "rgba(200, 200, 200, 0.8)", 
+    borderRadius: 20, 
+    padding: 20, 
+    marginLeft: 38, 
+    marginRight: 33,
+    flexDirection: "row" 
+  },
+  container2 : {
+    marginTop: 30, 
+    backgroundColor: "rgba(180, 180, 180, 0.8)", 
+    borderRadius: 20, 
+    padding: 20, 
+    marginLeft: 38, 
+    marginRight: 33,
+    flexDirection: "row" 
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: '#06213E',
+    alignSelf:"flex-start"
+  }
+})

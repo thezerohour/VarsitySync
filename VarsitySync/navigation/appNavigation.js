@@ -25,7 +25,7 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false}} name="SignUp" component={SignupScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
           <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
-          <Stack.Screen options= {{headerShown: false}} name="Main" component={BottomTabNavigator} />
+          <Stack.Screen options= {{headerShown: false, gestureEnabled: false}} name="Main" component={BottomTabNavigator} />
           <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'formSheet'}} name="Feedback" component={FeedbackScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Grades" component={GradesScreen} />
