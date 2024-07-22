@@ -15,7 +15,7 @@ const ImageSlider = ({data}) => {
     bounces= {false}>
       {data.map((item, index) => {
         return (
-          <View style= {{width: SIZE, marginVertical: 20}}>
+          <View key= {index} style= {{width: SIZE, marginVertical: 20}}>
             <View style= {styles.imageContainer}>
               <Image source= {item.image} style= {styles.image}/>
             </View>
