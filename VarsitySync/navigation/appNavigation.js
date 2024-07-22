@@ -10,6 +10,7 @@ import FeedbackScreen from '../screens/FeedbackScreen';
 import GradesScreen from '../screens/GradesScreen';
 import TrainingScreen from '../screens/TrainingScreen';
 import AddGradeScreen from '../screens/AddGradeScreen';
+import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 import BottomTabNavigator from './tabNavigation';
 
 
@@ -30,6 +31,7 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Grades" component={GradesScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddGrades" component={AddGradeScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Training" component={TrainingScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddWorkout" component={AddWorkoutScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )

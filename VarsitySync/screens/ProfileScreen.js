@@ -33,7 +33,8 @@ export default function ProfileScreen() {
     } catch (error) {
       Alert.alert('Error', error.message);
     }
-  }
+}
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -55,7 +56,7 @@ export default function ProfileScreen() {
     };
 
     fetchUserData();
-  });
+  }, []);
 
   if (!userData) {
     return (
@@ -115,7 +116,7 @@ export default function ProfileScreen() {
 
       <View className= 'space-y-4 mt-20 mb-8' style={{width: 400}}>
           <TouchableOpacity 
-            onPress={() => handleLogOut()}
+            onPress={handleLogOut}
             className= "py-4 bg-slate-50 mx-8 rounded-xl">
               <Text
                 className= 'text-2xl font-bold text-center text-blue-950 '>

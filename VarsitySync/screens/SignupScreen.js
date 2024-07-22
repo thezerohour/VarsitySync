@@ -36,6 +36,7 @@ export default function SignupScreen() {
     const [name, setName] = useState('');
     const [year, setYear] = useState('');
     const [cca, setCCA] = useState('');
+    const [workout, setWorkout] = useState([]);
     const [loading, setLoading] = useState(false);
 
     
@@ -75,6 +76,7 @@ export default function SignupScreen() {
             email: email,
             name: name,
             profileImage: profileImage,
+            workout: [],
           });
     
           alert('User registered successfully! Please check your email inbox for a verification link to complete your account setup.');
@@ -117,10 +119,6 @@ export default function SignupScreen() {
             </View>
         </SafeAreaView>
 
-        <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView className= " bg-white px-8 pt-8 mt-[-20px]" style= {{borderTopLeftRadius: 50, borderTopRightRadius: 50}}>
         
@@ -241,7 +239,6 @@ export default function SignupScreen() {
         </ScrollView>
         </TouchableWithoutFeedback>
 
-        </KeyboardAvoidingView>
     </View>
   )
 }
