@@ -12,6 +12,7 @@ import { auth, db } from "../firebaseConfig";
 import { doc, getDocs, updateDoc, arrayRemove, orderBy } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 import { onSnapshot } from "firebase/firestore";
+import { deleteDoc } from "firebase/firestore";
 
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { TrashIcon, PlusIcon } from "react-native-heroicons/outline";
@@ -59,13 +60,11 @@ export default function EventScreen() {
         const currentUser = auth.currentUser;
         if (currentUser) {
             const uid = currentUser.uid;
-            const userDocRef = doc(db, "users", uid);
+            const userDocRef = doc(db, "users", uid, "schedules", item.id);
 
             try {
-                await updateDoc(userDocRef, {
-                    events: arrayRemove(item),
-                });
-                fetchEvents(); // Refresh the list
+                await deleteDoc(userDocRef);
+                console.log("Event deleted");
             } catch (error) {
                 console.error("Error deleting events:", error);
                 alert(`An error occurred: ${error.message}`);
@@ -91,18 +90,16 @@ export default function EventScreen() {
                         
                         renderItem={({ item }) => (
                             <View style={styles.events}>
-                                <View style={styles.block}></View>
-
-                                <Text style={styles.exercise}>
-                                    {item.eventName} - {item.description} - {item.date}
-                                </Text>
-
                                 <TouchableOpacity
                                     onPress={() => handleDeleteEvent(item)}
                                     style={styles.thrash}
                                 >
                                     <TrashIcon size="28" color="#06213E" />
                                 </TouchableOpacity>
+
+                                <Text style={styles.exercise}>
+                                    {item.eventName} - {item.description} - {item.date}
+                                </Text>
                             </View>
                         )}
                     />
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
     thrash: {
         flexDirection: "row",
         marginTop: -3,
-        marginLeft: 10,
+        marginLeft: 0,
     },
     exercise: {
         flexDirection: "row",
