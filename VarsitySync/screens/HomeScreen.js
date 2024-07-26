@@ -1,51 +1,124 @@
-import { View, Text, Image, TouchableOpacity, StatusBar, Al } from 'react-native'
-import React, { useRef } from 'react'
-import { colors } from '../theme'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import React, { useEffect, useState } from 'react'
+
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import LottieView from 'lottie-react-native';
-import { auth } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+
+import { ClipboardDocumentCheckIcon, CalendarDaysIcon} from 'react-native-heroicons/outline'
+
+import ImageSlider from '../components/ImageSlider';
+import { sliderImages } from '../constants';
 
 
 
 export default function HomeScreen() {
   const navigation =useNavigation();
-  const animation = useRef(null);
+
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const uid = currentUser.uid;
+        try {
+          const userDocRef = doc(db, 'users', uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+  
+          if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+            setUserName(userData.name);
+          } else {
+            console.log('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   return (
-  <SafeAreaView className = 'flex-1' style= {{backgroundColor: colors.background}}>
-    <StatusBar barStyle="light-content" />
-    <View className= 'flex-1 flex justify-around my-4'>
-      <Text 
-        className = 'text-slate-50 font-bold text-4xl text-center'>
-        Welcome 
-      </Text>
-      <View className ='flex-row justify-center mt-[-120px]'>
-      <LottieView
-        className = ''
-        autoPlay
-        ref={animation}
-        style={{
-          width: 350,
-          height: 350,
-          backgroundColor: colors.background,
-        }}
-        // Find more Lottie files at https://lottiefiles.com/featured
-        source={require('../assets/lottie /sport.json')}
-      />
-      </View>
-      <View className= 'space-y-4 mt-[-100px]'>
-        <TouchableOpacity 
-          onPress={() => navigation.navigate("ToDoList")}
-          className= "py-3 bg-slate-50 mx-7 rounded-xl">
-            <Text
-              className= 'text-xl font-bold text-center text-blue-950 '>
-              To Do List
-            </Text>
-        </TouchableOpacity>
-      </View>
-      
-    </View>
-  </SafeAreaView>
+    <ImageBackground 
+    source= {require('../assets/images/homescreen.png')}
+    style= {{width: 450, height: 550, marginTop: -32, marginLeft: -30}}
+    >
+      <SafeAreaView>
+        <Text style= {{
+          paddingHorizontal: 10,
+          paddingTop: 65,
+          fontSize: 35,
+          fontWeight:"800" ,
+          color: "white",
+          marginLeft: 30,
+        }}>
+          Welcome back 
+        </Text>
+        <Text style= {{
+          paddingHorizontal: 10,
+          paddingTop: 0,
+          fontSize: 35,
+          fontWeight:"800" ,
+          color: "white",
+          marginLeft: 30,
+        }}>
+        {userName}!
+        </Text>
+
+        {/* image slider*/ }
+        <View style= {{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 33,}}>
+          <ImageSlider data= {sliderImages}/>
+        </View>
+
+        {/* task */}
+        <View style= {styles.container1}>
+          <ClipboardDocumentCheckIcon size= '30' style={{color: '#06213E', marginTop: -3}} />
+          <Text style= {styles.text}> Task </Text>
+        </View>
+
+        {/* schedule */}
+        <View style= {styles.container2}>
+          <CalendarDaysIcon size= '30' style={{color: '#06213E', marginTop: -5}} />
+          <Text style= {styles.text}> Schedule </Text>
+        </View>
+
+
+      </SafeAreaView>
+
+
+
+    </ImageBackground>
+ 
   )
 }
+
+const styles = StyleSheet.create({
+  container1 : {
+    marginTop: 30, 
+    backgroundColor: "rgba(200, 200, 200, 0.8)", 
+    borderRadius: 20, 
+    padding: 20, 
+    marginLeft: 38, 
+    marginRight: 33,
+    flexDirection: "row" 
+  },
+  container2 : {
+    marginTop: 30, 
+    backgroundColor: "rgba(180, 180, 180, 0.8)", 
+    borderRadius: 20, 
+    padding: 20, 
+    marginLeft: 38, 
+    marginRight: 33,
+    flexDirection: "row" 
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: '#06213E',
+    alignSelf:"flex-start"
+  }
+})

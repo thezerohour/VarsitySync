@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React, { useState, useRef} from 'react'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../firebaseConfig'
 import { addDoc, collection } from 'firebase/firestore';
 

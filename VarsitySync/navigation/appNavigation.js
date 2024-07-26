@@ -7,6 +7,10 @@ import SignupScreen from '../screens/SignupScreen';
 import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
+import GradesScreen from '../screens/GradesScreen';
+import TrainingScreen from '../screens/TrainingScreen';
+import AddGradeScreen from '../screens/AddGradeScreen';
+import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 import BottomTabNavigator from './tabNavigation';
 import EventScreen from '../screens/EventScreen';
 import AddEventScreen from '../screens/AddEventScreen';
@@ -16,21 +20,25 @@ import AddEventScreen from '../screens/AddEventScreen';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen options= {{headerShown: false}} name="SignUp" component={SignupScreen} />
-        <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
-        <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
-        <Stack.Screen options= {{headerShown: false, gestureEnabled: false}} name="Main" component={BottomTabNavigator} />
-        <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
-        <Stack.Screen options= {{headerShown: false, presentation: 'formSheet'}} name="Feedback" component={FeedbackScreen} />
-        <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Events" component={EventScreen} />
-        <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddEvent" component={AddEventScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen options= {{headerShown: false}} name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="SignUp" component={SignupScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="ForgetPassword" component={ForgetPasswordScreen} />
+          <Stack.Screen options= {{headerShown: false}} name="Login" component={LoginScreen} />
+          <Stack.Screen options= {{headerShown: false, gestureEnabled: false}} name="Main" component={BottomTabNavigator} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'card'}} name="Edit" component={EditProfileScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'formSheet'}} name="Feedback" component={FeedbackScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Grades" component={GradesScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddGrades" component={AddGradeScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Training" component={TrainingScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddWorkout" component={AddWorkoutScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddEvent" component={AddEventScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Events" component={EventScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
 }
 
 {/* const TabNavigator = () => {

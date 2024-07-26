@@ -27,6 +27,7 @@ export default function EditProfileScreen() {
     const [bio, setBio] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+    const [workout, setWorkout] = useState([])
 
     const profileImages = [
         Profile1,
@@ -54,6 +55,7 @@ export default function EditProfileScreen() {
                         setCCA(userData.cca || '');
                         setYear(userData.year || '');
                         setBio(userData.bio || '');
+                        setWorkout(userData.workout);
                     } else {
                         console.log('No such document!');
                     }
@@ -75,7 +77,8 @@ export default function EditProfileScreen() {
             cca,
             year,
             email,
-            bio
+            bio,
+            workout
           })
           console.log('User profile updated successfully!');
           navigation.goBack(); // Navigate back to previous screen
@@ -109,6 +112,7 @@ export default function EditProfileScreen() {
                     <TextInput
                         className= "flex-1 ml-1 justify-center text-base mt-[-7px]" 
                         placeholder='CCA'
+                        value={cca}
                         onChangeText={setCCA}
                         autoCapitalize= 'none'
                         autoCorrect={false}
@@ -120,6 +124,7 @@ export default function EditProfileScreen() {
                     <TextInput
                         className= "flex-1 ml-1 justify-center text-base mt-[-7px]" 
                         placeholder='Year with CCA'
+                        value={year}
                         onChangeText={setYear}
                         autoCapitalize= 'none'
                         autoCorrect={false}

@@ -6,6 +6,7 @@ import {
     View,
     FlatList,
     Modal,
+    StatusBar,
 } from "react-native";
 import { colors } from "../theme";
 import { AntDesign } from "@expo/vector-icons";
@@ -77,7 +78,6 @@ export default function ToDoList() {
                 return item.id === list.id ? list : item;
             }),
         });
-    }; */
 
     addList = async (list) => {
         const currentUser = auth.currentUser;
