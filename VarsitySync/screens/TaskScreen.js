@@ -63,22 +63,6 @@ export default function ToDoList() {
         return <TodoList list={list} updateList={this.updateList} />;
     };
 
-    /* addList = (list) => {
-        this.setState({
-            lists: [
-                ...this.state.lists,
-                { ...list, id: this.state.lists.length + 1, todos: [] },
-            ],
-        });
-    }; 
-
-    UpdateList = (list) => {
-        this.setState({
-            lists: this.state.lists.map((item) => {
-                return item.id === list.id ? list : item;
-            }),
-        });
-
     addList = async (list) => {
         const currentUser = auth.currentUser;
         if (currentUser) {
