@@ -9,7 +9,9 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../theme";
+import { addDoc, collection, doc } from "firebase/firestore";
 import tempData from "../tempData";
+import { auth, db } from "../firebaseConfig";
 
 export default class AddListModal extends Component {
     backgroundColors = [
@@ -26,15 +28,32 @@ export default class AddListModal extends Component {
         color: this.backgroundColors[0],
     };
 
-    createTodo = () => {
-        const { name, color } = this.state;
+    handleAddList = async () => {
+        if (!this.state.name) {
+            alert("Please fill in a name.");
+            return;
+        }
 
-        const list = { name, color };
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const uid = currentUser.uid;
+            const userDocRef = doc(db, "users", uid);
+            const taskCollectionRef = collection(userDocRef, "tasks");
 
-        this.props.addList(list);
-
-        this.setState({ name: "" });
-        this.props.closeModal();
+            try {
+                await addDoc(taskCollectionRef, {
+                    color: this.state.color,
+                    name: this.state.name,
+                    todos: [],
+                });
+                console.log("Event added successfully!");
+                alert("Event added successfully!");
+                this.props.closeModal(); // Navigate back to previous screen
+            } catch (error) {
+                console.error("Error adding event:", error);
+                alert(`An error occurred: ${error.message}`);
+            }
+        }
     };
 
     renderColors() {
@@ -83,7 +102,7 @@ export default class AddListModal extends Component {
                             styles.create,
                             { backgroundColor: this.state.color },
                         ]}
-                        onPress={this.createTodo}
+                        onPress={this.handleAddList}
                     >
                         <Text
                             style={{ color: colors.white, fontWeight: "600" }}

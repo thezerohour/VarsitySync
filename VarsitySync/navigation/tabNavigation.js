@@ -1,12 +1,12 @@
 import React from 'react';
 import HomeScreen from '../screens/HomeScreen';
 import TaskScreen from '../screens/TaskScreen';
-import ScheduleScreen from '../screens/ScheduleScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
+import EventScreen from '../screens/EventScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +44,7 @@ const BottomTabNavigator = () => {
         }
       })}
     >
-      <Tab.Screen name='Schedule' component={ScheduleScreen} options={{ headerShown: false, title: 'Schedule' }} />
+      <Tab.Screen name='Schedule' component={EventScreen} options={{ headerShown: false, title: 'Schedule' }} />
       <Tab.Screen name='Task' component={TaskScreen} options={{ headerShown: false, title: 'Tasks' }} />
       <Tab.Screen name='Home' component={HomeScreen} options={{ headerShown: false, title: 'Home' }} />
       <Tab.Screen name='Progress' component={ProgressScreen} options={{ headerShown: false, title: 'Progress' }} />

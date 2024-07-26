@@ -12,22 +12,45 @@ import {
 import React, { Component } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { colors } from "../theme";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig";
 
 export default class TodoModal extends Component {
     state = {
         newTodo: "",
+        list: this.props.list,
+    };
+
+    handleUpdateList = async () => {
+        const currentUser = auth.currentUser;
+        const taskID = this.state.list.id;
+        console.log("Task ID: ", taskID);
+        if (currentUser) {
+            const uid = currentUser.uid;
+            const taskDocRef = doc(db, "users", uid, "tasks", taskID);
+
+            try {
+                await updateDoc(taskDocRef, {
+                    todos: this.props.list.todos,
+                });
+                console.log("Event updated successfully!");
+            } catch (error) {
+                console.error("Error updating event:", error);
+                alert(`An error occurred: ${error.message}`);
+            }
+        }
     };
 
     toggleTodoCompleted = index => {
         let list = this.props.list;
         list.todos[index].completed = !list.todos[index].completed;
-        this.props.updateList(list);
+        this.handleUpdateList(list);
     }
 
     addTodo = () => {
         let list = this.props.list;
         list.todos.push({ title: this.state.newTodo, completed: false });
-        this.props.updateList(list);
+        this.handleUpdateList(list);
         this.setState({ newTodo: "" });
         Keyboard.dismiss();
     }

@@ -12,6 +12,8 @@ import TrainingScreen from '../screens/TrainingScreen';
 import AddGradeScreen from '../screens/AddGradeScreen';
 import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 import BottomTabNavigator from './tabNavigation';
+import EventScreen from '../screens/EventScreen';
+import AddEventScreen from '../screens/AddEventScreen';
 
 
 
@@ -32,6 +34,8 @@ export default function AppNavigation() {
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddGrades" component={AddGradeScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Training" component={TrainingScreen} />
           <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddWorkout" component={AddWorkoutScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'modal'}} name="AddEvent" component={AddEventScreen} />
+          <Stack.Screen options= {{headerShown: false, presentation: 'fullScreenModal'}} name="Events" component={EventScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )
