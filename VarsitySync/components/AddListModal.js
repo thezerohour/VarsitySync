@@ -28,6 +28,17 @@ export default class AddListModal extends Component {
         color: this.backgroundColors[0],
     };
 
+/**
+ * Add List to the TaskScreen 
+ * 
+ * @async
+ * @function handleAddList
+ * @param {string} color - code of color of list
+ * @param {string} name - name of list
+ * @param {Array} todos - empty array of tasks
+ * @returns {Promise<void>}
+ */
+
     handleAddList = async () => {
         if (!this.state.name) {
             alert("Please fill in a name.");

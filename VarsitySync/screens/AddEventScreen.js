@@ -31,6 +31,17 @@ export default function AddEventScreen() {
         setDate(dayjs(params.date).format("YYYY-MM-DD"));
     });
 
+/**
+ * Add Event to the EventScreen 
+ * 
+ * @async
+ * @function handleAddEvent
+ * @param {string} eventName - name of event 
+ * @param {string} description - description of event
+ * @param {string} date - date of event
+ * @returns {Promise<void>}
+ */
+
     const handleAddEvent = async () => {
         if (!eventName || !description || !date) {
             alert("Please fill in all fields.");

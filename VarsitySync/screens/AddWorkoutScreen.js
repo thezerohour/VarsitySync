@@ -22,6 +22,16 @@ export default function AddWorkoutScreen() {
     const [exercise, setExercise] = useState("");
     const [description, setDescription] = useState("");
 
+/**
+ * Add workout to the TrainingScreen 
+ * 
+ * @async
+ * @function handleAddWorkout
+ * @param {string} exercise - name of exercise 
+ * @param {string} description - description of exercise
+ * @returns {Promise<void>}
+ */
+
     const handleAddWorkout = async () => {
         const currentUser = auth.currentUser;
         if (currentUser) {

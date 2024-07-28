@@ -22,6 +22,18 @@ const AddGradeScreen = () => {
     setGrade(text.toUpperCase());
   };
 
+/**
+ * Add grades to the GradesScreen 
+ * 
+ * @async
+ * @function handleAddGrade
+ * @param {string} courseName - name of course
+ * @param {string} grade - grade for course 
+ * @param {string} year - year of study
+ * @param {string} semester - semester of study
+ * @returns {Promise<void>}
+ */
+
   const handleAddGrade = async () => {
 
     if (!courseName || !grade) {
