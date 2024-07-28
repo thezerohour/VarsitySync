@@ -81,7 +81,7 @@ export default function EventScreen() {
                 >
                 </View>
 
-                <Text style={styles.heading}>My Events</Text>
+                <Text style={styles.heading}>My Schedule</Text>
 
                 <View style={{ marginTop: 15 }}>
                     <FlatList
@@ -90,16 +90,27 @@ export default function EventScreen() {
                         
                         renderItem={({ item }) => (
                             <View style={styles.events}>
-                                <TouchableOpacity
-                                    onPress={() => handleDeleteEvent(item)}
-                                    style={styles.thrash}
-                                >
-                                    <TrashIcon size="28" color="#06213E" />
-                                </TouchableOpacity>
+                                <View style= {styles.rowContainer}>
+                                    <TouchableOpacity
+                                        onPress={() => handleDeleteEvent(item)}
+                                        style={styles.thrash}
+                                    >
+                                        <TrashIcon size="28" color="#06213E" />
+                                    </TouchableOpacity>
 
-                                <Text style={styles.exercise}>
-                                    {item.eventName} - {item.description} - {item.date}
-                                </Text>
+                                    <Text style={styles.event}>
+                                        {item.eventName} - 
+                                    </Text>
+                                    
+                                    <Text style={styles.description}>
+                                        {item.description} 
+                                    </Text>
+                                </View>
+                                <View style= {styles.dateContainer}>
+                                    <Text style={styles.date}>
+                                    {item.date}
+                                    </Text>
+                                </View>
                             </View>
                         )}
                     />
@@ -122,7 +133,6 @@ export default function EventScreen() {
 
 const styles = StyleSheet.create({
     heading: {
-        flexDirection: "row",
         color: "#06213E",
         alignSelf: "center",
         justifyContent: "center",
@@ -132,12 +142,17 @@ const styles = StyleSheet.create({
         marginTop: -67,
     },
     events: {
-        flexDirection: "row",
         borderRadius: 20,
         backgroundColor: "#f0f0f0",
         padding: 15,
         marginHorizontal: 10,
         marginTop: 9,
+    },
+    rowContainer: {
+        flexDirection: "row",
+        alignItems: "center", // Align items vertically centered in the row
+        marginLeft: 14,
+        marginTop: -4,
     },
     block: {
         flexDirection: "row",
@@ -148,18 +163,32 @@ const styles = StyleSheet.create({
         marginTop: 1,
     },
     thrash: {
-        flexDirection: "row",
-        marginTop: -3,
-        marginLeft: 0,
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: -15,
+        marginRight: 7,
+        marginBottom: -30
     },
-    exercise: {
-        flexDirection: "row",
-        fontSize: 22,
-        fontWeight: "900",
+    event: {
+        fontSize: 23,
+        fontWeight: "700",
         alignSelf: "flex-start",
-        marginLeft: 14,
-        marginTop: -5,
-    },
+      },
+      description: {
+        fontSize: 20,
+        fontWeight: "500",
+        marginLeft: 10, // Space between event and description
+
+      },
+      dateContainer: {
+        marginTop: 10,
+        alignItems: "flex-start",
+        marginLeft: 34, // Align with the same left margin as rowContainer
+      },
+      date: {
+        fontSize: 18,
+        fontWeight: "700",
+      },
     circleButton: {
         borderRadius: 60,
         backgroundColor: "#38466E",

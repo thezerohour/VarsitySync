@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     SafeAreaView,
     View,
@@ -6,12 +6,11 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    ScrollView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { db, auth } from "../firebaseConfig";
 import { doc, collection, query, where, getDocs } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -22,35 +21,37 @@ const GradesScreen = () => {
     const [grades, setGrades] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
         // Fetch grades based on selected year and semester
-        const fetchGrades = async () => {
-            setLoading(true);
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-                const uid = currentUser.uid;
-                const userDocRef = doc(db, "users", uid);
-                const gradesCollectionRef = collection(userDocRef, "grades");
+    const fetchGrades = async () => {
+        setLoading(true);
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const uid = currentUser.uid;
+            const userDocRef = doc(db, "users", uid);
+            const gradesCollectionRef = collection(userDocRef, "grades");
+            const q = query(
+                gradesCollectionRef,
+                where("year", "==", year),
+                where("semester", "==", semester)                
+            );
+            const querySnapshot = await getDocs(q);
 
-                const q = query(
-                    gradesCollectionRef,
-                    where("year", "==", year),
-                    where("semester", "==", semester)
-                );
-                const querySnapshot = await getDocs(q);
+            const fetchedGrades = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
 
-                const fetchedGrades = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                }));
+            setGrades(fetchedGrades);
+        }
+        setLoading(false);
+    };
 
-                setGrades(fetchedGrades);
-            }
-            setLoading(false);
-        };
 
-        fetchGrades();
-    }, [year, semester]);
+    useFocusEffect(
+        useCallback(() => {
+          fetchGrades();
+        }, [year, semester])
+      );
 
     const renderGradeItem = ({ item }) => (
         <View style={styles.gradeItem} className="flex-row">
@@ -195,10 +196,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     loading: {
-        fontSize: 25,
+        fontSize: 29,
         fontWeight: "500",
         alignSelf: "center",
-        marginVertical: 100,
+        marginTop: 10,
+        marginBottom: 50,
+        paddingVertical: 90
     },
     noData: {
         justifyContent: "center",

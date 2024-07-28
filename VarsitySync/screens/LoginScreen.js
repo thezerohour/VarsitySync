@@ -1,5 +1,5 @@
-import { View, Text, Platform, TouchableOpacity, Image, TextInput, Alert, KeyboardAvoidingView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, Image, TextInput, Alert, KeyboardAvoidingView } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { colors } from '../theme'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -20,15 +20,13 @@ export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     // const [loading, setLoading] = useState(false);
-
+    
     const handleLogin = async () => {
         // setLoading(true);
         if (email && password) {
             try {
-              await signInWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
-                  const user = userCredential.user;
-              })
+              const userCredential = await signInWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
               console.log('login successful')
               navigation.navigate("Main");
             } catch (error) {

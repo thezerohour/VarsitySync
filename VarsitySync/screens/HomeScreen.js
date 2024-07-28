@@ -69,7 +69,7 @@ export default function HomeScreen() {
       <SafeAreaView>
         <Text style={{
           paddingHorizontal: 10,
-          paddingTop: 65,
+          paddingTop: 50,
           fontSize: 35,
           fontWeight: "800" ,
           color: "white",
@@ -95,15 +95,16 @@ export default function HomeScreen() {
 
         {/* task */}
         <View style={styles.container1}>
-          <ClipboardDocumentCheckIcon size='30' style={{color: '#06213E', marginTop: -3}} />
-          <Text style={styles.text}> Tasks: {taskCount} lists</Text>
+          <ClipboardDocumentCheckIcon size='30' style={{color: '#06213E', marginTop: 1, marginLeft: -25}} />
+          <Text style={styles.text}> Tasks: {taskCount} tasks</Text>
         </View>
 
         {/* schedule */}
         <View style={styles.container2}>
-          <CalendarDaysIcon size='30' style={{color: '#06213E', marginTop: -5}} />
+          <CalendarDaysIcon size='30' style={{color: '#06213E', marginLeft: -25}} />
           <Text style={styles.text}> Schedule: {eventCount} upcoming</Text>
         </View>
+        
 
       </SafeAreaView>
     </ImageBackground>
@@ -115,22 +116,22 @@ const styles = StyleSheet.create({
     marginTop: 30, 
     backgroundColor: "rgba(200, 200, 200, 0.8)", 
     borderRadius: 20, 
-    padding: 20, 
+    padding: 40, 
     marginLeft: 38, 
     marginRight: 33,
-    flexDirection: "row" 
+    flexDirection: "row",
   },
   container2 : {
     marginTop: 30, 
     backgroundColor: "rgba(180, 180, 180, 0.8)", 
     borderRadius: 20, 
-    padding: 20, 
+    padding: 40, 
     marginLeft: 38, 
     marginRight: 33,
     flexDirection: "row" 
   },
   text: {
-    fontSize: 20,
+    fontSize: 27,
     fontWeight: "bold",
     color: '#06213E',
     alignSelf:"flex-start"

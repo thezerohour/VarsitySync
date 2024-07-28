@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import { auth, db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {NewspaperIcon, PencilSquareIcon} from 'react-native-heroicons/solid'
@@ -26,37 +26,36 @@ export default function ProfileScreen() {
     Profile4,
     Profile5,
   ];
-  const handleLogOut = async () => {
+
+const fetchUserData = async () => {
+  const currentUser = auth.currentUser;
+  if (currentUser) {
+    console.log(`User ID: ${currentUser.uid}`);
+    const uid = currentUser.uid;
     try {
-      await auth.signOut();
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-}
-
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        const uid = currentUser.uid;
-        try {
-          const userDocRef = doc(db, 'users', uid);
-          const userDoc = await getDoc(userDocRef);
-          if (userDoc.exists()) {
-            setUserData(userDoc.data());
-          } else {
-            console.log('No such document!');
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
+      const userDocRef = doc(db, 'users', uid);
+      const userDoc = await getDoc(userDocRef);
+      if (userDoc.exists()) {
+        console.log('User document data:', userDoc.data());
+        setUserData(userDoc.data());
+      } else {
+        console.log('No such document!');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  } else {
+    console.log('No user is currently logged in');
+  }
+};
 
+useFocusEffect(
+  useCallback(() => {
     fetchUserData();
-  }, []);
+  }, [])
+);
+
+
 
   if (!userData) {
     return (
@@ -116,7 +115,7 @@ export default function ProfileScreen() {
 
       <View className= 'space-y-4 mt-20 mb-8' style={{width: 400}}>
           <TouchableOpacity 
-            onPress={handleLogOut}
+            onPress={() => navigation.navigate('Welcome')}
             className= "py-4 bg-slate-50 mx-8 rounded-xl">
               <Text
                 className= 'text-2xl font-bold text-center text-blue-950 '>

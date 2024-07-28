@@ -108,14 +108,10 @@ export default function ToDoList() {
                 />
             </Modal>
 
-            <View>
-                <Text>User: {auth.currentUser.displayName}</Text>
-            </View>
-
             <View style={{ flexDirection: "row" }}>
                 <View style={styles.divider} />
                 <Text style={styles.title}>
-                    Todo{" "}
+                    Task{" "}
                     <Text style={{ fontWeight: "300", color: colors.blue }}>
                         List
                     </Text>

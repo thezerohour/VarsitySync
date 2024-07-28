@@ -68,7 +68,7 @@ export default function AddEventScreen() {
                 >
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
-                        className="ml-2 mt-[31px]"
+                        className="ml-2 mt-[21px]"
                     >
                         <ArrowLeftIcon size="35" color="#06213E" />
                     </TouchableOpacity>
@@ -79,7 +79,7 @@ export default function AddEventScreen() {
 
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View
-                    className="flex-1 bg-slate-900 px-8 pt-2 mt-5"
+                    className="flex-1 bg-slate-900 px-8 pt-2"
                     style={{
                         borderTopLeftRadius: 50,
                         borderTopRightRadius: 50,
@@ -135,7 +135,7 @@ export default function AddEventScreen() {
 
                     <TouchableOpacity
                         onPress={handleAddEvent}
-                        className="py-3 mx-1 rounded-xl mt-7 bg-green-500"
+                        className="py-3 mx-1 rounded-xl mt-3 bg-green-500"
                     >
                         <Text className="text-center text-white font-bold text-2xl">
                             Submit
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: "bold",
         padding: 2,
-        marginTop: -47,
-        marginRight: -15,
+        marginTop: -60,
+        marginRight: 7,
+        marginBottom: 7
     },
 });
