@@ -64,7 +64,7 @@ export default function HomeScreen() {
   return (
     <ImageBackground 
       source={require('../assets/images/homescreen.png')}
-      style={{width: 480, height: 550, marginTop: -32, marginLeft: -30}}
+      style={{width: 480, height: 550, marginTop: -35, marginLeft: -30}}
     >
       <SafeAreaView>
         <Text style={{
