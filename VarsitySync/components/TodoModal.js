@@ -14,6 +14,7 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { colors } from "../theme";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
+import { TrashIcon } from "react-native-heroicons/outline";
 
 export default class TodoModal extends Component {
     state = {
@@ -41,6 +42,12 @@ export default class TodoModal extends Component {
         }
     };
 
+    deleteTodo = index => {
+        let list = this.props.list;
+        list.todos.splice(index, 1);
+        this.handleUpdateList(list);
+    }
+
     toggleTodoCompleted = index => {
         let list = this.props.list;
         list.todos[index].completed = !list.todos[index].completed;
@@ -58,6 +65,10 @@ export default class TodoModal extends Component {
     renderTodo = (todo, index) => {
         return (
             <View style={styles.todoContainer}>
+                <TouchableOpacity onPress={() => this.deleteTodo(index)}>
+                        <TrashIcon marginRight='25' size="24" color="#06213E"/>
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => this.toggleTodoCompleted(index)} >
                     <Ionicons
                         name={
@@ -171,10 +182,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     section: {
-        flex: 1,
         alignSelf: "stretch",
     },
     header: {
+        padding: 16,
         justifyContent: "flex-end",
         marginLeft: 64,
         borderBottomWidth: 3,

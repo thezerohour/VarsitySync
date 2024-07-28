@@ -11,12 +11,19 @@ import { ClipboardDocumentCheckIcon, CalendarDaysIcon} from 'react-native-heroic
 import ImageSlider from '../components/ImageSlider';
 import { sliderImages } from '../constants';
 
+import { query, where, collection } from 'firebase/firestore';
+import { getDocs, count } from 'firebase/firestore';
+import dayjs from 'dayjs';
+
 
 
 export default function HomeScreen() {
   const navigation =useNavigation();
 
   const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [taskCount, setTaskCount] = useState(0);
+  const [eventCount, setEventCount] = useState(0);
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -26,6 +33,18 @@ export default function HomeScreen() {
         try {
           const userDocRef = doc(db, 'users', uid);
           const userDocSnapshot = await getDoc(userDocRef);
+          const taskCollectionRef = collection(userDocRef, 'tasks');
+          const eventCollectionRef = collection(userDocRef, 'schedules');
+
+          // Count incomplete tasks
+          const taskQ = query(taskCollectionRef);
+          const taskCountSnapshot = await getDocs(taskQ);
+          setTaskCount(taskCountSnapshot.size);
+
+          // Count future events
+          const dateQ = query(eventCollectionRef, where('date', '>', dayjs(Date.now()).format('YYYY-MM-DD')));
+          const eventCountSnapshot = await getDocs(dateQ);
+          setEventCount(eventCountSnapshot.size);
   
           if (userDocSnapshot.exists()) {
             const userData = userDocSnapshot.data();
@@ -44,55 +63,50 @@ export default function HomeScreen() {
 
   return (
     <ImageBackground 
-    source= {require('../assets/images/homescreen.png')}
-    style= {{width: 450, height: 550, marginTop: -32, marginLeft: -30}}
+      source={require('../assets/images/homescreen.png')}
+      style={{width: 450, height: 550, marginTop: -32, marginLeft: -30}}
     >
       <SafeAreaView>
-        <Text style= {{
+        <Text style={{
           paddingHorizontal: 10,
           paddingTop: 65,
           fontSize: 35,
-          fontWeight:"800" ,
+          fontWeight: "800" ,
           color: "white",
           marginLeft: 30,
         }}>
-          Welcome back 
+          Welcome back, 
         </Text>
-        <Text style= {{
+        <Text style={{
           paddingHorizontal: 10,
           paddingTop: 0,
           fontSize: 35,
-          fontWeight:"800" ,
+          fontWeight: "800" ,
           color: "white",
           marginLeft: 30,
         }}>
-        {userName}!
+          {userName}!
         </Text>
 
         {/* image slider*/ }
-        <View style= {{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 33,}}>
-          <ImageSlider data= {sliderImages}/>
+        <View style={{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 33,}}>
+          <ImageSlider data={sliderImages}/>
         </View>
 
         {/* task */}
-        <View style= {styles.container1}>
-          <ClipboardDocumentCheckIcon size= '30' style={{color: '#06213E', marginTop: -3}} />
-          <Text style= {styles.text}> Task </Text>
+        <View style={styles.container1}>
+          <ClipboardDocumentCheckIcon size='30' style={{color: '#06213E', marginTop: -3}} />
+          <Text style={styles.text}> Tasks: {taskCount} lists</Text>
         </View>
 
         {/* schedule */}
-        <View style= {styles.container2}>
-          <CalendarDaysIcon size= '30' style={{color: '#06213E', marginTop: -5}} />
-          <Text style= {styles.text}> Schedule </Text>
+        <View style={styles.container2}>
+          <CalendarDaysIcon size='30' style={{color: '#06213E', marginTop: -5}} />
+          <Text style={styles.text}> Schedule: {eventCount} upcoming</Text>
         </View>
 
-
       </SafeAreaView>
-
-
-
     </ImageBackground>
- 
   )
 }
 
