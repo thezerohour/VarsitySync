@@ -64,7 +64,7 @@ export default function HomeScreen() {
   return (
     <ImageBackground 
       source={require('../assets/images/homescreen.png')}
-      style={{width: 450, height: 550, marginTop: -32, marginLeft: -30}}
+      style={{width: 480, height: 550, marginTop: -32, marginLeft: -30}}
     >
       <SafeAreaView>
         <Text style={{
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200, 200, 200, 0.8)", 
     borderRadius: 20, 
     padding: 40, 
-    marginLeft: 38, 
-    marginRight: 33,
+    marginLeft: 37, 
+    marginRight: 65,
     flexDirection: "row",
   },
   container2 : {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 20, 
     padding: 40, 
     marginLeft: 38, 
-    marginRight: 33,
+    marginRight: 65,
     flexDirection: "row" 
   },
   text: {
