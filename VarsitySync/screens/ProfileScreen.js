@@ -13,6 +13,7 @@ import Profile3 from "../assets/images/profile3.png"
 import Profile4 from "../assets/images/profile4.png"
 import Profile5 from "../assets/images/profile5.png"
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { signOut } from 'firebase/auth';
 
 export default function ProfileScreen() {
   const navigation =useNavigation();
@@ -68,6 +69,19 @@ useFocusEffect(
   const renderBio = () => {
     return userData?.bio || "teamNUS"
   }
+  
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('successful signout');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Welcome"}],
+      });
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -115,7 +129,7 @@ useFocusEffect(
 
       <View className= 'space-y-4 mt-20 mb-8' style={{width: 400}}>
           <TouchableOpacity 
-            onPress={() => navigation.navigate('Welcome')}
+            onPress={handleLogout}
             className= "py-4 bg-slate-50 mx-8 rounded-xl">
               <Text
                 className= 'text-2xl font-bold text-center text-blue-950 '>

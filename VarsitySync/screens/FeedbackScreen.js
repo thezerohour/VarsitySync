@@ -77,7 +77,7 @@ export default function FeedbackScreen() {
                 </Text>
             </View>
             
-            <View className= 'p-2 bg-gray-100 text-white rounded-2xl mb-3 mt-2 flex-row'>
+            <View className= 'p-4 bg-gray-100 text-white rounded-2xl mb-3 mt-2 flex-row'>
                     <TagIcon size={30} color="lightgrey" className='mr-8 justify-center' />
                     <TextInput
                         className= "flex ml-1 justify-center text-base mt-[-6px]"
