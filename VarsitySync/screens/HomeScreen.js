@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
 import { SafeAreaView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect} from '@react-navigation/native'
 import { auth, db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
@@ -25,41 +25,44 @@ export default function HomeScreen() {
   const [taskCount, setTaskCount] = useState(0);
   const [eventCount, setEventCount] = useState(0);
 
-  useEffect(() => {
-    const fetchUserName = async () => {
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        const uid = currentUser.uid;
-        try {
-          const userDocRef = doc(db, 'users', uid);
-          const userDocSnapshot = await getDoc(userDocRef);
-          const taskCollectionRef = collection(userDocRef, 'tasks');
-          const eventCollectionRef = collection(userDocRef, 'schedules');
 
-          // Count incomplete tasks
-          const taskQ = query(taskCollectionRef);
-          const taskCountSnapshot = await getDocs(taskQ);
-          setTaskCount(taskCountSnapshot.size);
+  const fetchUserName = async () => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const uid = currentUser.uid;
+      try {
+        const userDocRef = doc(db, 'users', uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+        const taskCollectionRef = collection(userDocRef, 'tasks');
+        const eventCollectionRef = collection(userDocRef, 'schedules');
 
-          // Count future events
-          const dateQ = query(eventCollectionRef, where('date', '>', dayjs(Date.now()).format('YYYY-MM-DD')));
-          const eventCountSnapshot = await getDocs(dateQ);
-          setEventCount(eventCountSnapshot.size);
+        // Count incomplete tasks
+        const taskQ = query(taskCollectionRef);
+        const taskCountSnapshot = await getDocs(taskQ);
+        setTaskCount(taskCountSnapshot.size);
+
+        // Count future events
+        const dateQ = query(eventCollectionRef, where('date', '>', dayjs(Date.now()).format('YYYY-MM-DD')));
+        const eventCountSnapshot = await getDocs(dateQ);
+        setEventCount(eventCountSnapshot.size);
   
-          if (userDocSnapshot.exists()) {
-            const userData = userDocSnapshot.data();
-            setUserName(userData.name);
-          } else {
-            console.log('No such document!');
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+          setUserName(userData.name);
+        } else {
+          console.log('No such document!');
         }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
-    };
+    }
+  };
 
-    fetchUserName();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchUserName();
+    }, [])
+  );
 
   return (
     <ImageBackground 
@@ -89,7 +92,7 @@ export default function HomeScreen() {
         </Text>
 
         {/* image slider*/ }
-        <View style={{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 33,}}>
+        <View style={{marginTop: 30, backgroundColor: "rgba(240, 240, 240, 0.8)", borderRadius: 20, paddingHorizontal: 10, marginLeft: 38, marginRight: 62,}}>
           <ImageSlider data={sliderImages}/>
         </View>
 
